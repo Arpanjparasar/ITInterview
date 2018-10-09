@@ -1,9 +1,13 @@
 package itinterview.arpan.com.itinterview;
 
 import android.content.Intent;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,6 +28,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+
+import java.security.MessageDigest;
 
 public class login extends AppCompatActivity {
 
@@ -35,10 +46,48 @@ public class login extends AppCompatActivity {
     private com.google.android.gms.common.SignInButton btn_signin;
     private TextView nameText;
     private TextView emailText;
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        CallbackManager callbackManager;
+        final String TAG = "MainActivity";
+        // Initialize your instance of callbackManager//
+        callbackManager = CallbackManager.Factory.create();
+        // Register your callback//
+        LoginManager.getInstance().registerCallback(callbackManager,
+
+                // If the login attempt is successful, then call onSuccess and pass the LoginResult//
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        // Print the user’s ID and the Auth Token to Android Studio’s Logcat Monitor//
+                        Log.d(TAG, "User ID: " +
+                                loginResult.getAccessToken().getUserId() + "\n" +
+                                "Auth Token: " + loginResult.getAccessToken().getToken());
+                    }
+
+                    // If the user cancels the login, then call onCancel//
+                    @Override
+                    public void onCancel() {
+                    }
+
+                    // If an error occurs, then call onError//
+                    @Override
+                    public void onError(FacebookException exception) {
+                    }
+                });
+
+
+
+
+
+
         btn_signin=(com.google.android.gms.common.SignInButton)findViewById(R.id.signin_btn);
         btn_signout=(Button)findViewById(R.id.signout_btn);
         nameText =(TextView)findViewById(R.id.name);
@@ -54,10 +103,10 @@ public class login extends AppCompatActivity {
         //connection failed Listener
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-            public void onConnectionFailed(ConnectionResult connectionResult){
+                    public void onConnectionFailed(ConnectionResult connectionResult){
 
-            }
-        }).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();
+                    }
+                }).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();
 
 
         //get instance for firebase authentication
@@ -67,11 +116,9 @@ public class login extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user!=null){
-                    btn_signin.setVisibility(View.GONE);
-                    btn_signout.setVisibility(View.VISIBLE);
-                    if(user.getDisplayName()!=null)
-                        nameText.setText("Hello : " +user.getDisplayName().toString());
-                    emailText.setText(user.getEmail().toString());
+                     Intent intent = new Intent(login.this,HomeScreen.class);
+                     startActivity(intent);
+                     finish();
                 }else{
                     //User is Signed out
                     Toast.makeText(login.this,"No user signed in", Toast.LENGTH_SHORT).show();
@@ -87,7 +134,7 @@ public class login extends AppCompatActivity {
             }
         });
 
-        btn_signout.setOnClickListener(new View.OnClickListener() {
+      /*  btn_signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
@@ -103,7 +150,7 @@ public class login extends AppCompatActivity {
                 );
 
             }
-        });
+        });*/
     }
     private void signIn(){
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
@@ -112,15 +159,16 @@ public class login extends AppCompatActivity {
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent data ){
-       super.onActivityResult(requestCode,resultCode,data);
+        super.onActivityResult(requestCode,resultCode,data);
 
-       //Result returned from launching the Intent from GoogleSignInApi .getSinInIntent();
+        //Result returned from launching the Intent from GoogleSignInApi .getSinInIntent();
         if(requestCode==RC_SIGN_IN){
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if(result.isSuccess()){
                 //Google Sign In was successful,authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
+
             }else{
                 //In case Google Sign In is failed place your code here
             }
@@ -153,5 +201,7 @@ public class login extends AppCompatActivity {
                     }
                 });
     }
+
+
 }
 

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ITinterview</string>
+
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
+    <string name="facebook_application_id" translatable="false">fb276666836513385</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb276666836513385</string>
+    <string name="ACCOUNT_KIT_CLIENT_TOKEN" translatable="false">8b2d4ef8e5e3ae5959e07c7a4bd69c04</string>
+    <!-- Twitter consumer key and secret -->
 </resources>

@@ -10,6 +10,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -22,7 +23,12 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 try {
                     sleep(4000);
-                    Intent intent = new Intent(getApplicationContext(), login.class);
+                    Intent intent;
+                    if(FirebaseAuth.getInstance().getCurrentUser()== null) {
+                        intent = new Intent(getApplicationContext(), login.class);
+                    }else{
+                        intent = new Intent(getApplicationContext(), HomeScreen.class);
+                    }
                     startActivity(intent);
                     finish();
                 } catch (InterruptedException e) {
@@ -34,4 +40,5 @@ public class SplashScreen extends AppCompatActivity {
 
 
     }
+
 };
