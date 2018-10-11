@@ -19,20 +19,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-private TextView tv_empname,tv_empemail;
-private ImageView img;
+    private TextView tv_empname, tv_empemail;
+    private NetworkImageView profilePic;
+    private ImageLoader imageLoader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
 
-
+        imageLoader = CustomVolleyNetworkQueue.getInstance(this).getImageLoader();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -56,9 +63,10 @@ private ImageView img;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
+        profilePic = headerView.findViewById(R.id.iv_dp);
 
         tv_empname = (TextView) headerView.findViewById(R.id.TV_profileName);
-        tv_empemail=(TextView)headerView.findViewById(R.id.TV_profileEmail);
+        tv_empemail = (TextView) headerView.findViewById(R.id.TV_profileEmail);
         //FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
@@ -73,12 +81,17 @@ private ImageView img;
             }
         };*/
         String userEmail = mFirebaseUser.getEmail();
-        String name =mFirebaseUser.getDisplayName();
+        String name = mFirebaseUser.getDisplayName();
 
         tv_empname.setText(name);
         tv_empemail.setText(userEmail);
+        profilePic.setImageUrl(mFirebaseUser.getPhotoUrl().toString(), imageLoader);
 
+        imageLoader.get(mFirebaseUser.getPhotoUrl().toString(), ImageLoader.getImageListener(profilePic,
+                R.mipmap.ic_launcher, android.R.drawable
+                        .ic_dialog_alert));
 
+        profilePic.setImageUrl(mFirebaseUser.getPhotoUrl().toString(), imageLoader);
     }
 
     @Override
@@ -129,21 +142,26 @@ private ImageView img;
 
         } else if (id == R.id.nav_about) {
 
+            Intent intent=new Intent(HomeScreen.this,AboutUs.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.topttobottom,R.anim.bottomtotop);
+            finish();
+
 
         } else if (id == R.id.nav_share) {
 
-            Intent share=new Intent(Intent.ACTION_SEND);
+            Intent share = new Intent(Intent.ACTION_SEND);
             share.setType("text/plain");
-            String body="Download IT Interview!";
-            String sub="The best IT Interview app in India.";
-            share.putExtra(Intent.EXTRA_TEXT,body);
-            share.putExtra(Intent.EXTRA_SUBJECT,sub);
-            share.putExtra(Intent.EXTRA_TEXT,"give apk share link");
-            startActivity(Intent.createChooser(share,"Share Using"));
+            String body = "Download IT Interview!";
+            String sub = "The best IT Interview app in India.";
+            share.putExtra(Intent.EXTRA_TEXT, body);
+            share.putExtra(Intent.EXTRA_SUBJECT, sub);
+            share.putExtra(Intent.EXTRA_TEXT, "give apk share link");
+            startActivity(Intent.createChooser(share, "Share Using"));
 
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(this,SplashScreen.class);
+            Intent intent = new Intent(this, SplashScreen.class);
             startActivity(intent);
             finish();
         }
