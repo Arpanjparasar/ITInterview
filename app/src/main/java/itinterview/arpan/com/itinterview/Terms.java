@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-public class AboutUs extends Fragment {
+public class Terms extends Fragment {
 
     ImageView iv_back;
     private View fragmentView;
@@ -20,7 +20,7 @@ public class AboutUs extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        fragmentView = inflater.inflate(R.layout.activity_about_us, container, false);
+        fragmentView = inflater.inflate(R.layout.activity_terms, container, false);
         return fragmentView;
     }
 
