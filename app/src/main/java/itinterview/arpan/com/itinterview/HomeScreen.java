@@ -1,6 +1,8 @@
 package itinterview.arpan.com.itinterview;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,7 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -66,16 +70,7 @@ public class HomeScreen extends AppCompatActivity
         //FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        /*FirebaseAuth.AuthStateListener authListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                String userEmail = firebaseUser.getEmail();
-                String name =firebaseUser.getDisplayName();
-                tv_empname.setText(name);
-                tv_empemail.setText(userEmail);
-            }
-        };*/
+
         String userEmail = mFirebaseUser.getEmail();
         String name = mFirebaseUser.getDisplayName();
 
@@ -88,6 +83,21 @@ public class HomeScreen extends AppCompatActivity
                         .ic_dialog_alert));
 
         profilePic.setImageUrl(mFirebaseUser.getPhotoUrl().toString(), imageLoader);
+
+        goToHomeFragment();
+    }
+
+    private void goToHomeFragment() {
+        setTitle("IT Interview");
+        android.support.v4.app.Fragment aboutFragment= new Homefragment();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content,aboutFragment);
+        fragmentTransaction.commit();
+
+
     }
 
     @Override
@@ -128,16 +138,35 @@ public class HomeScreen extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_editProfile) {
+        if (id == R.id.nav_queries) {
+
+            AlertDialog.Builder report=new AlertDialog.Builder(HomeScreen.this);
+            View reportView=getLayoutInflater().inflate(R.layout.writetous,null);
+            EditText problem=reportView.findViewById(R.id.ET_subject);
+
+            report.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(HomeScreen.this,"Query Successfully Sent",Toast.LENGTH_LONG).show();
+
+
+                }
+            });
+            report.setNegativeButton("Abort", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+            report.setView(reportView);
+            report.show();
 
 
         }
 
         else if(id==R.id.nav_home){
 
-            Intent intent = new Intent(this, HomeScreen.class);
-            startActivity(intent);
-            finish();
+            goToHomeFragment();
 
         } else if (id == R.id.nav_terms) {
 
@@ -153,6 +182,28 @@ public class HomeScreen extends AppCompatActivity
 
 
         } else if (id == R.id.nav_report) {
+
+
+            AlertDialog.Builder report=new AlertDialog.Builder(HomeScreen.this);
+            View reportView=getLayoutInflater().inflate(R.layout.reportproblem,null);
+            EditText problem=reportView.findViewById(R.id.ET_subject);
+
+            report.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(HomeScreen.this,"Report Successfully Sent",Toast.LENGTH_LONG).show();
+
+
+                }
+            });
+            report.setNegativeButton("Abort", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+            report.setView(reportView);
+            report.show();
 
         } else if (id == R.id.nav_about) {
 
