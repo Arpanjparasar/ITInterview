@@ -30,7 +30,7 @@ public class ExpandableListDataPump {
 
         List<ListData> listDataArrayListCompany = new ArrayList<>();
         listDataArrayListCompany.add(new ListData("TCS",R.drawable.tcs));
-        listDataArrayListCompany.add(new ListData("HCL",R.drawable.ic_menu_camera));
+        listDataArrayListCompany.add(new ListData("ACCENTURE",R.drawable.accenture));
 
 
         expandableListDetail.put("Domain Wise", listDataArrayListDomain);

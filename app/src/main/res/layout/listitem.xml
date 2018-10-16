@@ -3,13 +3,17 @@
     android:layout_width="match_parent" android:layout_height="wrap_content">
     <TextView
         android:id="@+id/expandedListItem"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:drawableLeft="@drawable/ic_about"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:text="android"
         android:drawablePadding="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp" />
+        android:paddingTop="15dp"
+        android:textSize="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        />
+
 </RelativeLayout>
