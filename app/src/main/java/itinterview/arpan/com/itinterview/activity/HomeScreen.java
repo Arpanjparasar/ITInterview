@@ -1,4 +1,4 @@
-package itinterview.arpan.com.itinterview;
+package itinterview.arpan.com.itinterview.activity;
 
 
 import android.app.AlertDialog;
@@ -27,6 +27,14 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import itinterview.arpan.com.itinterview.utility.FireBaseUtility;
+import itinterview.arpan.com.itinterview.R;
+import itinterview.arpan.com.itinterview.fragment.AboutUs;
+import itinterview.arpan.com.itinterview.fragment.Homefragment;
+import itinterview.arpan.com.itinterview.fragment.Terms;
+import itinterview.arpan.com.itinterview.tables.ContactUs;
+import itinterview.arpan.com.itinterview.volley.CustomVolleyNetworkQueue;
+
 public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,6 +49,9 @@ public class HomeScreen extends AppCompatActivity
 
         imageLoader = CustomVolleyNetworkQueue.getInstance(this).getImageLoader();
 
+       // FireBaseUtility.saveData(new About(" Hi arapna fkjbvdfkjvndfkjvndfkjvndfkj"));
+
+        FireBaseUtility.saveContact(new ContactUs("11","3465","fdsf"));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

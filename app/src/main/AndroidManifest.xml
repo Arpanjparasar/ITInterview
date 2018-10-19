@@ -14,7 +14,7 @@
 
     <application
         android:testOnly="false"
-
+        android:name=".ITInterviewApplication"
         android:allowBackup="true"
         android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
         android:icon="@drawable/hmscrnlogo"
@@ -24,15 +24,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:supportsRtl">
-        <activity android:name=".SplashScreen">
+        <activity android:name=".activity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".login" />
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.login" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -45,7 +45,7 @@
             android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
 
         <activity
-            android:name=".HomeScreen"
+            android:name=".activity.HomeScreen"
             android:label="@string/title_activity_homescreen"
             android:theme="@style/AppTheme"></activity>
 

@@ -1,9 +1,11 @@
-package itinterview.arpan.com.itinterview;
+package itinterview.arpan.com.itinterview.utility;
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import itinterview.arpan.com.itinterview.R;
 
 public class ExpandableListDataPump {
     public static HashMap<String, List<ListData>> getData() {
@@ -17,8 +19,8 @@ public class ExpandableListDataPump {
         Domainwise.add("South Africa");
 
         List<ListData> listDataArrayListDomain = new ArrayList<>();
-        listDataArrayListDomain.add(new ListData("java",R.drawable.ic_about));
-        listDataArrayListDomain.add(new ListData("java",R.drawable.ic_menu_camera));
+        listDataArrayListDomain.add(new ListData("JAVA", R.mipmap.java));
+        listDataArrayListDomain.add(new ListData("ANDROID",R.mipmap.android));
 
 
         List<String> CompanyWise = new ArrayList<String>();
@@ -29,8 +31,9 @@ public class ExpandableListDataPump {
         CompanyWise.add("Italy");
 
         List<ListData> listDataArrayListCompany = new ArrayList<>();
-        listDataArrayListCompany.add(new ListData("TCS",R.drawable.tcs));
-        listDataArrayListCompany.add(new ListData("ACCENTURE",R.drawable.accenture));
+        listDataArrayListCompany.add(new ListData("TCS",R.mipmap.tcs));
+        listDataArrayListCompany.add(new ListData("ACCENTURE",R.mipmap.accenture));
+        listDataArrayListCompany.add(new ListData("WIPRO",R.mipmap.wipro));
 
 
         expandableListDetail.put("Domain Wise", listDataArrayListDomain);
@@ -39,7 +42,7 @@ public class ExpandableListDataPump {
         return expandableListDetail;
     }
 
-    static class ListData {
+    public static class ListData {
 
         String title;
         int icon;

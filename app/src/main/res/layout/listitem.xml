@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:drawableLeft="@drawable/ic_about"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:text="android"
         android:drawablePadding="10dp"
         android:paddingTop="15dp"

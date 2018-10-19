@@ -1,4 +1,4 @@
-package itinterview.arpan.com.itinterview;
+package itinterview.arpan.com.itinterview.adapter;
 
 
 
@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
+import itinterview.arpan.com.itinterview.utility.ExpandableListDataPump;
+import itinterview.arpan.com.itinterview.R;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 

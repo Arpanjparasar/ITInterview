@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AboutUs">
+    tools:context=".fragment.AboutUs">
 
 
     <ScrollView
@@ -31,34 +31,11 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="IT Interview is one of the most innovative and huge online Interview preparation portal in India. Founded in 2018, and since then, IT Interview has become a prominent name in the industry."
-                android:textColor="@color/black"
-                android:textSize="@dimen/label"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="          IT Interview connects all type of IT Interviews by accurately matching the criteria given by the user to the relevant Interview questions and preparation tips through an advanced 2-way matching technology. While most Interview apps only focus on getting all questions of interviews, IT Interview focuses on the entire technology for the interview related queries provided by the user. "
-                android:textColor="@color/black"
-                android:textSize="@dimen/label"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="          As the industry shifts towards mobile, IT Interview is one of leading the transition and is the fastest growing IT Interview portal on mobile devices, witnessing a 100% YOY growth in mobile traffic. "
-                android:textColor="@color/black"
-                android:textSize="@dimen/label"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="          IT Interview works closely to bridge the gap between talent and opportunities and offers end-to-end interview cracking tips and solutions.  IT Interview brings all the interview tips of most MNC's under one roof. "
+                android:text=" Fetching ...."
                 android:textColor="@color/black"
                 android:textSize="@dimen/label"/>
 

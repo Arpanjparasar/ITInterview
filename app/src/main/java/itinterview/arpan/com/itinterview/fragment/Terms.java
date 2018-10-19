@@ -1,4 +1,4 @@
-package itinterview.arpan.com.itinterview;
+package itinterview.arpan.com.itinterview.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import itinterview.arpan.com.itinterview.R;
 
 public class Terms extends Fragment {
 

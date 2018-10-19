@@ -1,8 +1,12 @@
-package itinterview.arpan.com.itinterview;
+package itinterview.arpan.com.itinterview.tables;
 
 public class About {
 
     String about;
+
+    public About(){
+
+    }
 
     public About(String about) {
         this.about = about;
@@ -16,4 +20,8 @@ public class About {
         this.about = about;
     }
 
+    @Override
+    public String toString() {
+        return about;
+    }
 }

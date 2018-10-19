@@ -1,7 +1,9 @@
-package itinterview.arpan.com.itinterview;
+package itinterview.arpan.com.itinterview.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import itinterview.arpan.com.itinterview.R;
 
 public class MainActivity extends AppCompatActivity {
 

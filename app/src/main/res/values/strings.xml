@@ -12,5 +12,11 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <string name="about">  IT Interview is one of the most innovative and huge online Interview preparation portal in India. Founded in 2018, and since then, IT Interview has become a prominent name in the industry.\n\t\t\t
+    IT Interview connects all type of IT Interviews by accurately matching the criteria given by the user to the relevant Interview questions and preparation tips through an advanced 2-way matching technology. While most Interview apps only focus on getting all questions of interviews, IT Interview focuses on the entire technology for the interview related queries provided by the user. \n\t\t\t
+    As the industry shifts towards mobile, IT Interview is one of leading the transition and is the fastest growing IT Interview portal on mobile devices, witnessing a 100% YOY growth in mobile traffic. \n\t\t
+    IT Interview works closely to bridge the gap between talent and opportunities and offers end-to-end interview cracking tips and solutions.  IT Interview brings all the interview tips of most MNC's under one roof. </string>
+
     <!-- Twitter consumer key and secret -->
 </resources>
