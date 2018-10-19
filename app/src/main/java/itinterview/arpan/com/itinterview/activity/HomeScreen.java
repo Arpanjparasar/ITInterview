@@ -27,6 +27,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import itinterview.arpan.com.itinterview.fragment.ContactUsFragment;
 import itinterview.arpan.com.itinterview.utility.FireBaseUtility;
 import itinterview.arpan.com.itinterview.R;
 import itinterview.arpan.com.itinterview.fragment.AboutUs;
@@ -49,9 +50,9 @@ public class HomeScreen extends AppCompatActivity
 
         imageLoader = CustomVolleyNetworkQueue.getInstance(this).getImageLoader();
 
-       // FireBaseUtility.saveData(new About(" Hi arapna fkjbvdfkjvndfkjvndfkjvndfkj"));
+       // FireBaseUtility.saveData(new About(" Hi arpan fkjbvdfkjvndfkjvndfkjvndfkj"));
 
-        FireBaseUtility.saveContact(new ContactUs("11","3465","fdsf"));
+     //   FireBaseUtility.saveContact(new ContactUs("11","3465","fdsf"));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -149,28 +150,20 @@ public class HomeScreen extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_queries) {
-
-            AlertDialog.Builder report=new AlertDialog.Builder(HomeScreen.this);
-            View reportView=getLayoutInflater().inflate(R.layout.writetous,null);
-            EditText problem=reportView.findViewById(R.id.ET_subject);
-
-            report.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(HomeScreen.this,"Query Successfully Sent",Toast.LENGTH_LONG).show();
+        if (id == R.id.nav_contactus) {
 
 
-                }
-            });
-            report.setNegativeButton("Abort", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.cancel();
-                }
-            });
-            report.setView(reportView);
-            report.show();
+            setTitle("Contact Us");
+
+            android.support.v4.app.Fragment aboutFragment= new ContactUsFragment();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.content,aboutFragment);
+            fragmentTransaction.commit();
+
+
 
 
         }

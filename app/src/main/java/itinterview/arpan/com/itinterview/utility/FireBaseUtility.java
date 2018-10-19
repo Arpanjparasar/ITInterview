@@ -6,6 +6,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import itinterview.arpan.com.itinterview.ITInterviewApplication;
 import itinterview.arpan.com.itinterview.listener.FetchAboutListener;
+import itinterview.arpan.com.itinterview.listener.FetchContactUs;
 import itinterview.arpan.com.itinterview.tables.About;
 import itinterview.arpan.com.itinterview.tables.ContactUs;
 
@@ -44,4 +45,26 @@ public class FireBaseUtility {
             }
         });
     }
+
+
+    public static void getContact(final FetchContactUs fetchContactUs) {
+
+        ITInterviewApplication.getFireBaseDatabase().child("contact").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ContactUs value = dataSnapshot.getValue(ContactUs.class);
+                System.out.println("print"+value.toString());
+                fetchContactUs.onContactSuccess(value);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                fetchContactUs.onContactFailure(databaseError.toException());
+                // ...
+            }
+        });
+    }
+
 }

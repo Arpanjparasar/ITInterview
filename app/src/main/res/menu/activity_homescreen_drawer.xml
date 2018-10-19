@@ -9,10 +9,7 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
             android:title="Home" />
-        <item
-            android:id="@+id/nav_queries"
-            android:icon="@drawable/ic_edit"
-            android:title="Write your queries to us" />
+
         <item
             android:id="@+id/nav_terms"
             android:icon="@drawable/ic_terms"
@@ -28,10 +25,15 @@
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_about"
             android:title="About" />
+        <item
+            android:id="@+id/nav_contactus"
+            android:icon="@drawable/ic_edit"
+            android:title="Contact Us" />
     </group>
 
     <item android:title="MORE">
         <menu>
+
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
