@@ -11,7 +11,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="38dp"
-        android:autofillHints="Domain" />
+        android:autofillHints="Domain"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
 
     <Spinner
         android:id="@+id/spinner_company"
@@ -21,18 +23,26 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="82dp"
-        android:autofillHints="Company" />
+        android:autofillHints="Company"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
 
     <EditText
         android:id="@+id/et_question"
+        android:bottomRightRadius="20dp"
+        android:bottomLeftRadius="20dp"
+        android:topLeftRadius="20dp"
+        android:topRightRadius="20dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="126dp"
-        android:background="@drawable/bg_rectangle"
+        android:background="@color/gray"
         android:ems="10"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:gravity="start"
         android:hint="Enter your question"
         android:inputType="textPersonName"
@@ -41,8 +51,13 @@
 
     <Button
         android:id="@+id/btn_submit"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/et_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Submit" />
+        android:layout_marginBottom="25dp"
+        android:textColor="@color/black"
+        android:text="Submit"
+        android:background="@drawable/signup_btn_bg"/>
 </RelativeLayout>
