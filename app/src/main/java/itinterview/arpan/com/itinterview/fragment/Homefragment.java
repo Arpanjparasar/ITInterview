@@ -18,6 +18,7 @@ import java.util.List;
 import itinterview.arpan.com.itinterview.adapter.CustomExpandableListAdapter;
 import itinterview.arpan.com.itinterview.utility.ExpandableListDataPump;
 import itinterview.arpan.com.itinterview.R;
+import itinterview.arpan.com.itinterview.utility.FireBaseUtility;
 
 public class Homefragment extends Fragment {
 
@@ -78,6 +79,8 @@ public class Homefragment extends Fragment {
                 return false;
             }
         });
+
+        FireBaseUtility.saveCatagory();
 
         return fragmentView;
     }

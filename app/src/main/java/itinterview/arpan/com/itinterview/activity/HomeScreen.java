@@ -18,7 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import itinterview.arpan.com.itinterview.fragment.ContactUsFragment;
+import itinterview.arpan.com.itinterview.tables.Question;
 import itinterview.arpan.com.itinterview.utility.FireBaseUtility;
 import itinterview.arpan.com.itinterview.R;
 import itinterview.arpan.com.itinterview.fragment.AboutUs;
@@ -61,8 +64,10 @@ public class HomeScreen extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               /* Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+
+               showQestionDialog();
             }
         });
 
@@ -97,6 +102,39 @@ public class HomeScreen extends AppCompatActivity
         profilePic.setImageUrl(mFirebaseUser.getPhotoUrl().toString(), imageLoader);
 
         goToHomeFragment();
+    }
+
+    private void showQestionDialog() {
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        View reportView=getLayoutInflater().inflate(R.layout.dialog_post_question,null);
+        final EditText etQuestion=reportView.findViewById(R.id.et_question);
+        final Spinner spinnerDomain = reportView.findViewById(R.id.spinner_domain);
+        final Spinner spinnerCompany = reportView.findViewById(R.id.spinner_company);
+
+        Button btnSubmit = reportView.findViewById(R.id.btn_submit);
+
+
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //String domain = spinnerDomain.getSelectedItem().toString();
+                //String company = spinnerCompany.getSelectedItem().toString();
+                //String que = etQuestion.getText().toString();
+
+                final Question question = new Question("JAVA","TCS","What is java ?");
+                FireBaseUtility.saveQuestion(question);
+                alertDialog.dismiss();
+            }
+        });
+
+
+        alertDialog.setView(reportView);
+        alertDialog.setCancelable(true);
+        alertDialog.show();
+
     }
 
     private void goToHomeFragment() {

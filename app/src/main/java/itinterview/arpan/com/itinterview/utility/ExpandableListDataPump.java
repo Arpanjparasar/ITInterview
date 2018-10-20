@@ -6,29 +6,21 @@ import java.util.HashMap;
 import java.util.List;
 
 import itinterview.arpan.com.itinterview.R;
+import itinterview.arpan.com.itinterview.listener.CompanyAndDomainFetchListiener;
+import itinterview.arpan.com.itinterview.tables.Company;
+import itinterview.arpan.com.itinterview.tables.Domain;
 
-public class ExpandableListDataPump {
+public class ExpandableListDataPump implements CompanyAndDomainFetchListiener {
     public static HashMap<String, List<ListData>> getData() {
         HashMap<String, List<ListData>> expandableListDetail = new HashMap<String, List<ListData>>();
 
-        List<String> Domainwise = new ArrayList<String>();
-        Domainwise.add("India");
-        Domainwise.add("Pakistan");
-        Domainwise.add("Australia");
-        Domainwise.add("England");
-        Domainwise.add("South Africa");
+
 
         List<ListData> listDataArrayListDomain = new ArrayList<>();
         listDataArrayListDomain.add(new ListData("JAVA", R.mipmap.java));
         listDataArrayListDomain.add(new ListData("ANDROID",R.mipmap.android));
 
 
-        List<String> CompanyWise = new ArrayList<String>();
-        CompanyWise.add("Brazil");
-        CompanyWise.add("Spain");
-        CompanyWise.add("Germany");
-        CompanyWise.add("Netherlands");
-        CompanyWise.add("Italy");
 
         List<ListData> listDataArrayListCompany = new ArrayList<>();
         listDataArrayListCompany.add(new ListData("TCS",R.mipmap.tcs));
@@ -39,7 +31,31 @@ public class ExpandableListDataPump {
         expandableListDetail.put("Domain Wise", listDataArrayListDomain);
         expandableListDetail.put("Company Wise", listDataArrayListCompany);
 
+        ArrayList<Domain> domains = new ArrayList<>();
+
+        ArrayList<Company> companies = new ArrayList<>();
+
+
         return expandableListDetail;
+    }
+
+    public void getFireBaseData(){
+        new FireBaseUtility().getCatagory(this);
+    }
+
+    @Override
+    public void onFetchDomainSucces(ArrayList<Domain> domains) {
+
+    }
+
+    @Override
+    public void onFetchCompanySucces(ArrayList<Company> companies) {
+
+    }
+
+    @Override
+    public void onFailure(Exception ex) {
+
     }
 
     public static class ListData {
@@ -69,5 +85,13 @@ public class ExpandableListDataPump {
         public void setIcon(int icon) {
             this.icon = icon;
         }
+    }
+
+    private void getDomains(){
+
+    }
+
+    private void getCompanies(){
+
     }
 }
