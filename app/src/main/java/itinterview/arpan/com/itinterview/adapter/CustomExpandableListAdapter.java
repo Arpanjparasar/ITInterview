@@ -13,20 +13,27 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import itinterview.arpan.com.itinterview.utility.ExpandableListDataPump;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+
+import itinterview.arpan.com.itinterview.model.ExpandableChild;
 import itinterview.arpan.com.itinterview.R;
+import itinterview.arpan.com.itinterview.volley.CustomVolleyNetworkQueue;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
+    private final ImageLoader imageLoader;
     private Context context;
     private List<String> expandableListTitle;
-    private HashMap<String, List<ExpandableListDataPump.ListData>> expandableListDetail;
+    private HashMap<String, List<ExpandableChild>> expandableListDetail;
 
     public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                       HashMap<String, List<ExpandableListDataPump.ListData>> expandableListDetail) {
+                                       HashMap<String, List<ExpandableChild>> expandableListDetail) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
+
+        imageLoader = CustomVolleyNetworkQueue.getInstance(context).getImageLoader();
     }
 
     @Override
@@ -43,7 +50,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        final ExpandableListDataPump.ListData listData= (ExpandableListDataPump.ListData) getChild(listPosition, expandedListPosition);
+        final ExpandableChild listData= (ExpandableChild) getChild(listPosition, expandedListPosition);
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -51,8 +58,18 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         }
         TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.expandedListItem);
-        expandedListTextView.setText(listData.getTitle());
-        expandedListTextView.setCompoundDrawablesWithIntrinsicBounds(listData.getIcon(), 0, 0, 0);
+
+        NetworkImageView networkImageView = (NetworkImageView) convertView
+                .findViewById(R.id.iv_icon);
+
+        expandedListTextView.setText(listData.getName());
+
+        imageLoader.get(listData.getUrl().toString(), ImageLoader.getImageListener(networkImageView,
+                R.mipmap.ic_launcher, android.R.drawable
+                        .ic_dialog_alert));
+
+        networkImageView.setImageUrl(listData.getUrl(), imageLoader);
+
         return convertView;
     }
 

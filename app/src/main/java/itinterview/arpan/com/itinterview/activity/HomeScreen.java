@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -29,7 +30,11 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+
 import itinterview.arpan.com.itinterview.fragment.ContactUsFragment;
+import itinterview.arpan.com.itinterview.model.ExpandableChild;
+import itinterview.arpan.com.itinterview.tables.Company;
 import itinterview.arpan.com.itinterview.tables.Question;
 import itinterview.arpan.com.itinterview.utility.FireBaseUtility;
 import itinterview.arpan.com.itinterview.R;
@@ -45,6 +50,46 @@ public class HomeScreen extends AppCompatActivity
     private TextView tv_empname, tv_empemail;
     private NetworkImageView profilePic;
     private ImageLoader imageLoader;
+
+    private ArrayList<ExpandableChild> companies;
+
+    public ArrayList<ExpandableChild> getCompanies() {
+        return companies;
+    }
+
+    ArrayList<String> getCompanyNames(){
+
+        ArrayList<String> names = new ArrayList<>();
+
+        for(ExpandableChild company:companies){
+            names.add(company.getName());
+        }
+        return names;
+    }
+
+    ArrayList<String> getDomainNames(){
+
+        ArrayList<String> names = new ArrayList<>();
+
+        for(ExpandableChild domain:domains){
+            names.add(domain.getName());
+        }
+        return names;
+    }
+
+    public void setCompanies(ArrayList<ExpandableChild> companies) {
+        this.companies = companies;
+    }
+
+    public ArrayList<ExpandableChild> getDomains() {
+        return domains;
+    }
+
+    public void setDomains(ArrayList<ExpandableChild> domains) {
+        this.domains = domains;
+    }
+
+    private ArrayList<ExpandableChild> domains;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +138,7 @@ public class HomeScreen extends AppCompatActivity
 
         tv_empname.setText(name);
         tv_empemail.setText(userEmail);
-        profilePic.setImageUrl(mFirebaseUser.getPhotoUrl().toString(), imageLoader);
+
 
         imageLoader.get(mFirebaseUser.getPhotoUrl().toString(), ImageLoader.getImageListener(profilePic,
                 R.mipmap.ic_launcher, android.R.drawable
@@ -102,6 +147,8 @@ public class HomeScreen extends AppCompatActivity
         profilePic.setImageUrl(mFirebaseUser.getPhotoUrl().toString(), imageLoader);
 
         goToHomeFragment();
+
+
     }
 
     private void showQestionDialog() {
@@ -114,6 +161,19 @@ public class HomeScreen extends AppCompatActivity
 
         Button btnSubmit = reportView.findViewById(R.id.btn_submit);
 
+
+        //Creating the ArrayAdapter instance having the country list
+        ArrayAdapter aaDomain = new ArrayAdapter(this,android.R.layout.simple_spinner_item,getDomainNames());
+        aaDomain.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinnerDomain.setAdapter(aaDomain);
+
+
+        //Creating the ArrayAdapter instance having the country list
+        ArrayAdapter aaCompany = new ArrayAdapter(this,android.R.layout.simple_spinner_item,getCompanyNames());
+        aaCompany.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinnerCompany.setAdapter(aaCompany);
 
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {

@@ -10,6 +10,7 @@ import itinterview.arpan.com.itinterview.ITInterviewApplication;
 import itinterview.arpan.com.itinterview.listener.CompanyAndDomainFetchListiener;
 import itinterview.arpan.com.itinterview.listener.FetchAboutListener;
 import itinterview.arpan.com.itinterview.listener.FetchContactUs;
+import itinterview.arpan.com.itinterview.model.ExpandableChild;
 import itinterview.arpan.com.itinterview.tables.About;
 import itinterview.arpan.com.itinterview.tables.Company;
 import itinterview.arpan.com.itinterview.tables.ContactUs;
@@ -113,21 +114,44 @@ public class FireBaseUtility {
 
     public void getCatagory(final CompanyAndDomainFetchListiener companyAndDomainFetchListiener){
 
-       final ArrayList<Company> companies = new ArrayList<>();
+       final ArrayList<ExpandableChild> companies = new ArrayList<>();
+        final ArrayList<ExpandableChild> domains = new ArrayList<>();
 
-        ITInterviewApplication.getFireBaseDatabase().child("category").child("company").addValueEventListener(new ValueEventListener() {
+        ITInterviewApplication.getFireBaseDatabase().child("Catagory").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+            for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
+
+                if(dataSnapshot1.getKey().equalsIgnoreCase("company")){
 
 
-                for(DataSnapshot children :dataSnapshot.getChildren()){
+                    for(DataSnapshot dataSnapshot2 :dataSnapshot1.getChildren()){
+                        Company company = dataSnapshot2.getValue(Company.class);
 
-                    Company value = children.getValue(Company.class);
-                    companies.add(value);
+                        ExpandableChild expandableChild =(ExpandableChild)company;
+
+                        System.out.println(company);
+                        companies.add(company);
+                    }
+
                 }
 
-                companyAndDomainFetchListiener.onFetchCompanySucces(companies);
+                if(dataSnapshot1.getKey().equalsIgnoreCase("domain")){
+
+
+                    for(DataSnapshot dataSnapshot2 :dataSnapshot1.getChildren()){
+                        Domain domain = dataSnapshot2.getValue(Domain.class);
+                        ExpandableChild expandableChild =(ExpandableChild)domain;
+                        System.out.println(domain);
+                        domains.add(domain);
+                    }
+
+                }
+
+            }
+
+            companyAndDomainFetchListiener.onFetchCategorySucces(companies,domains);
 
             }
 
@@ -138,29 +162,7 @@ public class FireBaseUtility {
             }
         });
 
-        final ArrayList<Domain> domains = new ArrayList<>();
-        ITInterviewApplication.getFireBaseDatabase().child("category").child("domain").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
-
-
-                for(DataSnapshot children :dataSnapshot.getChildren()){
-
-                    Domain value = children.getValue(Domain.class);
-                    domains.add(value);
-                }
-
-                companyAndDomainFetchListiener.onFetchDomainSucces(domains);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-
-            }
-        });
 
     }
 

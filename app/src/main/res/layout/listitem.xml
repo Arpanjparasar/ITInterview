@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_location"
+        android:background="@color/white"
+
+        />
     <TextView
+        android:layout_toRightOf="@+id/iv_icon"
         android:id="@+id/expandedListItem"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:drawableLeft="@drawable/ic_about"
         android:gravity="center_vertical"
         android:text="android"
         android:drawablePadding="10dp"

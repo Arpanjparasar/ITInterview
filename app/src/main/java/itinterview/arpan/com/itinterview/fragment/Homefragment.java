@@ -15,17 +15,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import itinterview.arpan.com.itinterview.activity.HomeScreen;
 import itinterview.arpan.com.itinterview.adapter.CustomExpandableListAdapter;
+import itinterview.arpan.com.itinterview.listener.CompanyAndDomainFetchListiener;
+import itinterview.arpan.com.itinterview.model.ExpandableChild;
+import itinterview.arpan.com.itinterview.tables.Company;
+import itinterview.arpan.com.itinterview.tables.Domain;
 import itinterview.arpan.com.itinterview.utility.ExpandableListDataPump;
 import itinterview.arpan.com.itinterview.R;
 import itinterview.arpan.com.itinterview.utility.FireBaseUtility;
 
-public class Homefragment extends Fragment {
+public class Homefragment extends Fragment implements CompanyAndDomainFetchListiener{
 
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
-    HashMap<String, List<ExpandableListDataPump.ListData>> expandableListDetail;
+    HashMap<String, List<ExpandableChild>> expandableListDetail;
 
     private View fragmentView;
 
@@ -38,11 +43,7 @@ public class Homefragment extends Fragment {
 
 
         expandableListView = (ExpandableListView) fragmentView.findViewById(R.id.expandableListView);
-        expandableListDetail = ExpandableListDataPump.getData();
-        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
 
-        expandableListAdapter = new CustomExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
-        expandableListView.setAdapter(expandableListAdapter);
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override
@@ -80,9 +81,28 @@ public class Homefragment extends Fragment {
             }
         });
 
-        FireBaseUtility.saveCatagory();
-
+       // FireBaseUtility.saveCatagory();
+        new FireBaseUtility().getCatagory(this);
         return fragmentView;
     }
 
+    @Override
+    public void onFetchCategorySucces(ArrayList<ExpandableChild> companies, ArrayList<ExpandableChild> domains) {
+
+        HomeScreen homeScreen = (HomeScreen) getActivity();
+        homeScreen.setCompanies(companies);
+        homeScreen.setDomains(domains);
+
+        expandableListDetail = new HashMap<>();
+        expandableListDetail.put("Domain",domains);
+        expandableListDetail.put("Companies",companies);
+        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+        expandableListAdapter = new CustomExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
+        expandableListView.setAdapter(expandableListAdapter);
+    }
+
+    @Override
+    public void onFailure(Exception ex) {
+
+    }
 }

@@ -10,12 +10,9 @@ import itinterview.arpan.com.itinterview.listener.CompanyAndDomainFetchListiener
 import itinterview.arpan.com.itinterview.tables.Company;
 import itinterview.arpan.com.itinterview.tables.Domain;
 
-public class ExpandableListDataPump implements CompanyAndDomainFetchListiener {
-    public static HashMap<String, List<ListData>> getData() {
+public class ExpandableListDataPump {
+  /*  public static HashMap<String, List<ListData>> getData() {
         HashMap<String, List<ListData>> expandableListDetail = new HashMap<String, List<ListData>>();
-
-
-
         List<ListData> listDataArrayListDomain = new ArrayList<>();
         listDataArrayListDomain.add(new ListData("JAVA", R.mipmap.java));
         listDataArrayListDomain.add(new ListData("ANDROID",R.mipmap.android));
@@ -43,13 +40,10 @@ public class ExpandableListDataPump implements CompanyAndDomainFetchListiener {
         new FireBaseUtility().getCatagory(this);
     }
 
-    @Override
-    public void onFetchDomainSucces(ArrayList<Domain> domains) {
-
-    }
 
     @Override
-    public void onFetchCompanySucces(ArrayList<Company> companies) {
+    public void onFetchCategorySucces(ArrayList<Company> companies, ArrayList<Domain> domains) {
+
 
     }
 
@@ -93,5 +87,5 @@ public class ExpandableListDataPump implements CompanyAndDomainFetchListiener {
 
     private void getCompanies(){
 
-    }
+    }*/
 }
