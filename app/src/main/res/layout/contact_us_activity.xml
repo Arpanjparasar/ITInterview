@@ -65,6 +65,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
+                android:autoLink="email"
+                android:textIsSelectable="false"
+                android:textColor="@color/black"
+
                 android:text="arpangeet@gmail.com"/>
         </LinearLayout>
         <LinearLayout
@@ -84,6 +88,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
+                android:linksClickable="true"
+                android:autoLink="phone"
+                android:textAllCaps="true"
+                android:textIsSelectable="false"
+                android:textColor="@color/black"
                 android:text="+91-9365440739"/>
         </LinearLayout>
         <LinearLayout
@@ -103,6 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
+                android:textColor="@color/black"
                 android:text="Jorhat, Assam, India"/>
         </LinearLayout>
     </LinearLayout>

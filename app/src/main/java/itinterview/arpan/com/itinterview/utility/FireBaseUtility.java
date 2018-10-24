@@ -5,11 +5,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import itinterview.arpan.com.itinterview.ITInterviewApplication;
 import itinterview.arpan.com.itinterview.listener.CompanyAndDomainFetchListiener;
 import itinterview.arpan.com.itinterview.listener.FetchAboutListener;
 import itinterview.arpan.com.itinterview.listener.FetchContactUs;
+import itinterview.arpan.com.itinterview.listener.QuestionAnswerFetchListener;
 import itinterview.arpan.com.itinterview.model.ExpandableChild;
 import itinterview.arpan.com.itinterview.tables.About;
 import itinterview.arpan.com.itinterview.tables.Company;
@@ -75,12 +77,9 @@ public class FireBaseUtility {
     }
 
 
-    public static void saveQuestion(Question question){
-        ITInterviewApplication.getFireBaseDatabase().child("domain").child(question.getDomain()).setValue(question);
-        ITInterviewApplication.getFireBaseDatabase().child("company").child(question.getCompany()).setValue(question);
-    }
 
-    public static void saveCatagory(){
+
+    /*public static void saveCatagory(){
 
         ArrayList<Domain> domains = new ArrayList<>();
         ArrayList<Company> companies = new ArrayList<>();
@@ -110,7 +109,7 @@ public class FireBaseUtility {
             ITInterviewApplication.getFireBaseDatabase().child("Catagory").child("company").child(com.getName()).setValue(com);
         }
 
-    }
+    }*/
 
     public void getCatagory(final CompanyAndDomainFetchListiener companyAndDomainFetchListiener){
 
@@ -166,4 +165,46 @@ public class FireBaseUtility {
 
     }
 
+
+    public void saveQuestion(Question question){
+
+        String userId = ITInterviewApplication.getFireBaseDatabase().push().getKey();
+        question.setUserId(userId);
+        ITInterviewApplication.getFireBaseDatabase().child("question").child("domain").child(question.getDomain()).child(userId).setValue(question);
+        ITInterviewApplication.getFireBaseDatabase().child("question").child("company").child(question.getCompany()).child(userId).setValue(question);
+
+    }
+
+
+    public void fetchQuestionAnswer(String domainOrCompany, String category, final QuestionAnswerFetchListener questionAnswerFetchListener) {
+
+        final  HashMap<String,ArrayList<Question>> arrayListHashMap = new HashMap<>();
+
+        //ArrayList<Question> questions ;
+
+        ITInterviewApplication.getFireBaseDatabase().child("question").child(domainOrCompany).child(category).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
+
+                    ArrayList<Question> questions = new ArrayList<>();
+                    Question value = dataSnapshot1.getValue(Question.class);
+                    questions.add(value);
+
+                    arrayListHashMap.put(value.getQuestion(),questions);
+                }
+
+                questionAnswerFetchListener.onFetchSuccess(arrayListHashMap);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+
+            }
+        });
+
+    }
 }

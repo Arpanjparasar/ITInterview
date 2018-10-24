@@ -7,7 +7,17 @@ public class Question {
 
     String question;
 
-    String answer;
+    String answer = "Not yet Answered";
+
+    String userId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getAnswer() {
         return answer;

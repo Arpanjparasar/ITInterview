@@ -180,12 +180,12 @@ public class HomeScreen extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                //String domain = spinnerDomain.getSelectedItem().toString();
-                //String company = spinnerCompany.getSelectedItem().toString();
-                //String que = etQuestion.getText().toString();
+                String domain = spinnerDomain.getSelectedItem().toString();
+                String company = spinnerCompany.getSelectedItem().toString();
+                String que = etQuestion.getText().toString();
 
-                final Question question = new Question("JAVA","TCS","What is java ?");
-                FireBaseUtility.saveQuestion(question);
+                final Question question = new Question(domain,company,que);
+                new FireBaseUtility().saveQuestion(question);
                 alertDialog.dismiss();
             }
         });
