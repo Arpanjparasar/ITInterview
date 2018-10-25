@@ -185,7 +185,7 @@ public class HomeScreen extends AppCompatActivity
                 String que = etQuestion.getText().toString();
 
                 final Question question = new Question(domain,company,que);
-                new FireBaseUtility().saveQuestion(question);
+                FireBaseUtility.saveQuestion(question);
                 alertDialog.dismiss();
             }
         });

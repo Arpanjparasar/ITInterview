@@ -2,8 +2,8 @@ package itinterview.arpan.com.itinterview.tables;
 
 public class Question {
 
-    String domain;
-    String company;
+    String Domains;
+    String Companies;
 
     String question;
 
@@ -28,19 +28,19 @@ public class Question {
     }
 
     public String getDomain() {
-        return domain;
+        return Domains;
     }
 
     public void setDomain(String domain) {
-        this.domain = domain;
+        this.Domains = domain;
     }
 
     public String getCompany() {
-        return company;
+        return Companies;
     }
 
     public void setCompany(String company) {
-        this.company = company;
+        this.Companies = company;
     }
 
     public String getQuestion() {
@@ -55,10 +55,10 @@ public class Question {
 
     }
 
-    public Question(String domain, String company, String question) {
+    public Question(String domains, String company, String question) {
 
-        this.domain = domain;
-        this.company = company;
+        this.Domains = domains;
+        this.Companies = company;
         this.question = question;
     }
 }

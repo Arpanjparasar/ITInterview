@@ -86,6 +86,9 @@ public class Homefragment extends Fragment implements CompanyAndDomainFetchListi
                 Bundle bundle = new Bundle();
                 bundle.putString(IViewConstants.CATEGORY,expandableListDetail.get(
                         expandableListTitle.get(groupPosition)).get(childPosition).getName());
+
+                bundle.putString(IViewConstants.TITLE,expandableListTitle.get(groupPosition));
+
                 questionAnswerFragment.setArguments(bundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction =        fragmentManager.beginTransaction();
