@@ -34,7 +34,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="146" />
+                                                <entry key="scalingPercent" value="54" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -47,10 +47,10 @@
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="fdfdff" />
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="D:\My pics\IMG_20180923_123504.jpg" />
+                                      <entry key="foregroundImage" value="E:\ANDROID_APPS\PNG images\interview-logo.png" />
                                       <entry key="foregroundLayerName" value="ic_launcher_foreground" />
                                       <entry key="legacyIconShape" value="NONE" />
-                                      <entry key="outputName" value="mypic" />
+                                      <entry key="outputName" value="launher_logo" />
                                       <entry key="webIconShape" value="NONE" />
                                     </map>
                                   </option>
