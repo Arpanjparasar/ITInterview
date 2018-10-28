@@ -4,6 +4,7 @@ package itinterview.arpan.com.itinterview.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -42,6 +43,7 @@ import itinterview.arpan.com.itinterview.fragment.AboutUs;
 import itinterview.arpan.com.itinterview.fragment.Homefragment;
 import itinterview.arpan.com.itinterview.fragment.Terms;
 import itinterview.arpan.com.itinterview.tables.ContactUs;
+import itinterview.arpan.com.itinterview.utility.NetworkUtility;
 import itinterview.arpan.com.itinterview.volley.CustomVolleyNetworkQueue;
 
 public class HomeScreen extends AppCompatActivity
@@ -51,7 +53,7 @@ public class HomeScreen extends AppCompatActivity
     private NetworkImageView profilePic;
     private ImageLoader imageLoader;
 
-    private ArrayList<ExpandableChild> companies;
+    private ArrayList<ExpandableChild> companies = new ArrayList<>();
 
     public ArrayList<ExpandableChild> getCompanies() {
         return companies;
@@ -89,7 +91,17 @@ public class HomeScreen extends AppCompatActivity
         this.domains = domains;
     }
 
-    private ArrayList<ExpandableChild> domains;
+    private ArrayList<ExpandableChild> domains = new ArrayList<>();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(NetworkUtility.isNetworkConnected(this)){
+
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,14 +110,18 @@ public class HomeScreen extends AppCompatActivity
 
         imageLoader = CustomVolleyNetworkQueue.getInstance(this).getImageLoader();
 
-       // FireBaseUtility.saveData(new About(" Hi arpan fkjbvdfkjvndfkjvndfkjvndfkj"));
+        //FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-     //   FireBaseUtility.saveContact(new ContactUs("11","3465","fdsf"));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if(mFirebaseUser ==null){
+            fab.setEnabled(false);
+        }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,22 +145,21 @@ public class HomeScreen extends AppCompatActivity
 
         tv_empname = (TextView) headerView.findViewById(R.id.TV_profileName);
         tv_empemail = (TextView) headerView.findViewById(R.id.TV_profileEmail);
-        //FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-        String userEmail = mFirebaseUser.getEmail();
-        String name = mFirebaseUser.getDisplayName();
+        if(mFirebaseUser !=null) {
+            String userEmail = mFirebaseUser.getEmail();
+            String name = mFirebaseUser.getDisplayName();
 
-        tv_empname.setText(name);
-        tv_empemail.setText(userEmail);
+            tv_empname.setText(name);
+            tv_empemail.setText(userEmail);
 
 
-        imageLoader.get(mFirebaseUser.getPhotoUrl().toString(), ImageLoader.getImageListener(profilePic,
-                R.mipmap.ic_launcher, android.R.drawable
-                        .ic_dialog_alert));
+            imageLoader.get(mFirebaseUser.getPhotoUrl().toString(), ImageLoader.getImageListener(profilePic,
+                    R.mipmap.ic_launcher, android.R.drawable
+                            .ic_dialog_alert));
 
-        profilePic.setImageUrl(mFirebaseUser.getPhotoUrl().toString(), imageLoader);
+            profilePic.setImageUrl(mFirebaseUser.getPhotoUrl().toString(), imageLoader);
+        }
 
         goToHomeFragment();
 
@@ -152,6 +167,9 @@ public class HomeScreen extends AppCompatActivity
     }
 
     private void showQestionDialog() {
+
+        if(getDomainNames().size() == 0 || getCompanyNames().size() ==0) return;
+
 
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         View reportView=getLayoutInflater().inflate(R.layout.dialog_post_question,null);
@@ -294,6 +312,8 @@ public class HomeScreen extends AppCompatActivity
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     Toast.makeText(HomeScreen.this,"Report Successfully Sent",Toast.LENGTH_LONG).show();
+                   // sendEmail();
+
 
 
                 }
@@ -341,4 +361,32 @@ public class HomeScreen extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    /*protected void sendEmail() {
+
+
+        String recipient="arpanjyotiparasar@gmail.com";
+        String problem="IT Interview problem";
+        String[] recipients = {recipient.toString()};
+        Intent email = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
+        // prompts email clients only
+        email.setType("message/rfc822");
+        email.putExtra(Intent.EXTRA_EMAIL, recipients);
+        email.putExtra(Intent.EXTRA_SUBJECT, problem);
+        email.putExtra(Intent.EXTRA_TEXT,findViewById(R.id.ET_subject).toString());
+        try {
+            // the user can choose the email client
+            startActivity(Intent.createChooser(email, "Choose the email..."));
+            } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(HomeScreen.this, "No email client installed.",
+
+                    Toast.LENGTH_LONG).show();
+
+        }
+
+    }*/
+
+
+
 }
+

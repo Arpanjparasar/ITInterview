@@ -2,13 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="wrap_content"
     android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp">
+    android:layout_marginRight="30dp"
+    android:background="@color/white">
 
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -21,9 +23,10 @@
             android:textColor="@color/black"
             android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|right|left"
             android:text="android"
+            android:layout_gravity="center_vertical|right"
             android:drawablePadding="10dp"
             android:paddingTop="15dp"
             android:textSize="13dp"

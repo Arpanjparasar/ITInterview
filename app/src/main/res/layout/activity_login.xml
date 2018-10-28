@@ -47,10 +47,24 @@
             android:layout_marginBottom="35dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-
             android:layout_marginTop="60dp"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:bottomLeftRadius="50dp"
+            android:bottomRightRadius="50dp"
+            android:topLeftRadius="50dp"
+            android:topRightRadius="50dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Skip Login"
+            android:src="@android:drawable/ic_media_next"
+            android:onClick="skip"
+            android:background="@drawable/signup_btn_bg"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="10dp"/>
 
         <Button
 

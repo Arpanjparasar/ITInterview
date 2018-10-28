@@ -26,7 +26,7 @@ import itinterview.arpan.com.itinterview.R;
 import itinterview.arpan.com.itinterview.utility.FireBaseUtility;
 import itinterview.arpan.com.itinterview.utility.IViewConstants;
 
-public class Homefragment extends Fragment implements CompanyAndDomainFetchListiener{
+public class Homefragment extends BaseFragment implements CompanyAndDomainFetchListiener{
 
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
@@ -35,7 +35,7 @@ public class Homefragment extends Fragment implements CompanyAndDomainFetchListi
 
     private View fragmentView;
 
-    private ProgressDialog dialog;;
+
 
 
     @Nullable
@@ -44,16 +44,16 @@ public class Homefragment extends Fragment implements CompanyAndDomainFetchListi
 
         fragmentView = inflater.inflate(R.layout.homefragment, container, false);
 
-        dialog = new ProgressDialog(getActivity());
+        //dialog = new ProgressDialog(getActivity());
         expandableListView = (ExpandableListView) fragmentView.findViewById(R.id.expandableListView);
 
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override
             public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getActivity(),
+               /* Toast.makeText(getActivity(),
                         expandableListTitle.get(groupPosition) + " List Expanded.",
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT).show();*/
             }
         });
 
@@ -61,9 +61,9 @@ public class Homefragment extends Fragment implements CompanyAndDomainFetchListi
 
             @Override
             public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getActivity(),
+                /*Toast.makeText(getActivity(),
                         expandableListTitle.get(groupPosition) + " List Collapsed.",
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT).show();*/
 
             }
         });
@@ -72,14 +72,14 @@ public class Homefragment extends Fragment implements CompanyAndDomainFetchListi
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                Toast.makeText(
+               /* Toast.makeText(
                         getActivity(),
                         expandableListTitle.get(groupPosition)
                                 + " -> "
                                 + expandableListDetail.get(
                                 expandableListTitle.get(groupPosition)).get(
                                 childPosition), Toast.LENGTH_SHORT
-                ).show();
+                ).show();*/
 
                 QuestionAnswerFragment questionAnswerFragment = new QuestionAnswerFragment();
 
@@ -105,31 +105,17 @@ public class Homefragment extends Fragment implements CompanyAndDomainFetchListi
         getActivity().setTitle("IT Interview");
 
        // FireBaseUtility.saveCatagory();
-        showProgressDialog();
-        new FireBaseUtility().getCatagory(this);
+
 
         return fragmentView;
     }
 
-    private void showProgressDialog() {
+    @Override
+    public void onResume() {
+        super.onResume();
 
-    if(dialog == null){
-        dialog = new ProgressDialog(getActivity());
-    }
-    dialog.setCancelable(false);
-    dialog.setMessage("Fetching data..");
-
-    if(!dialog.isShowing())
-    dialog.show();
-
-
-    }
-
-    private void dissMissProgressDialog(){
-        if(dialog != null && dialog.isShowing()){
-            dialog.dismiss();
-        }
-
+        showProgressDialog();
+        new FireBaseUtility().getCatagory(this);
     }
 
     @Override

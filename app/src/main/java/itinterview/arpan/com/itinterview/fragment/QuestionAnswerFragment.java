@@ -20,11 +20,16 @@ import itinterview.arpan.com.itinterview.utility.FireBaseUtility;
 import itinterview.arpan.com.itinterview.utility.IViewConstants;
 
 
-public class QuestionAnswerFragment extends Fragment implements QuestionAnswerFetchListener {
+public class QuestionAnswerFragment extends BaseFragment implements QuestionAnswerFetchListener {
 
     private View fragmentView;
     private ExpandableListView expandableListView;
     private QuestionAndAnswerExpandableListAdapter expandableListAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Nullable
     @Override
@@ -38,6 +43,7 @@ public class QuestionAnswerFragment extends Fragment implements QuestionAnswerFe
         String title = getArguments().getString(IViewConstants.TITLE);
 
         getActivity().setTitle(value);
+        showProgressDialog();
 
         new FireBaseUtility().fetchQuestionAnswer(title,value,this);
 
@@ -49,10 +55,12 @@ public class QuestionAnswerFragment extends Fragment implements QuestionAnswerFe
 
         expandableListAdapter = new QuestionAndAnswerExpandableListAdapter(getActivity(), questionAnswerMap);
         expandableListView.setAdapter(expandableListAdapter);
+
+        dissMissProgressDialog();
     }
 
     @Override
     public void onFailure(Exception exception) {
-
+    dissMissProgressDialog();
     }
 }

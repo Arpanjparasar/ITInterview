@@ -113,10 +113,7 @@ public class login extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user!=null){
-                     Intent intent = new Intent(login.this,HomeScreen.class);
-                     //intent.putExtra("name",);
-                     startActivity(intent);
-                     finish();
+                    gotoHomeScreen();
                 }else{
                     //User is Signed out
                     Toast.makeText(login.this,"No user signed in", Toast.LENGTH_SHORT).show();
@@ -150,6 +147,14 @@ public class login extends AppCompatActivity {
             }
         });*/
     }
+
+    private void gotoHomeScreen() {
+        Intent intent = new Intent(login.this,HomeScreen.class);
+        //intent.putExtra("name",);
+        startActivity(intent);
+        finish();
+    }
+
     private void signIn(){
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent,RC_SIGN_IN);
@@ -201,5 +206,8 @@ public class login extends AppCompatActivity {
     }
 
 
+    public void skip(View view) {
+        gotoHomeScreen();
+    }
 }
 

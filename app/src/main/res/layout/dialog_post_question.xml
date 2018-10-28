@@ -3,7 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/IV_top"
+        android:layout_width="210dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/question"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/LL_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/IV_top"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
     <Spinner
+
         android:id="@+id/spinner_domain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -11,53 +31,57 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="38dp"
+        android:layout_marginBottom="15dp"
         android:autofillHints="Domain"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"/>
 
-    <Spinner
-        android:id="@+id/spinner_company"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="82dp"
-        android:autofillHints="Company"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        <Spinner
+            android:id="@+id/spinner_company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="15dp"
+            android:autofillHints="Company" />
 
-    <EditText
-        android:id="@+id/et_question"
-        android:bottomRightRadius="20dp"
-        android:bottomLeftRadius="20dp"
-        android:topLeftRadius="20dp"
-        android:topRightRadius="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="126dp"
-        android:background="@color/gray"
-        android:ems="10"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:gravity="start"
-        android:hint="Enter your question"
-        android:inputType="textPersonName"
-        android:paddingLeft="10dp"
-        android:paddingStart="10dp" />
+        <EditText
+            android:id="@+id/et_question"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
 
+            android:background="@color/gray"
+            android:bottomLeftRadius="20dp"
+            android:bottomRightRadius="20dp"
+            android:ems="10"
+            android:gravity="start"
+            android:hint="Enter your question"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:topLeftRadius="20dp"
+            android:topRightRadius="20dp" />
+
+
+    </LinearLayout>
     <Button
         android:id="@+id/btn_submit"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/et_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/LL_subject"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="25dp"
-        android:textColor="@color/black"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:background="@drawable/signup_btn_bg"
         android:text="Submit"
-        android:background="@drawable/signup_btn_bg"/>
+        android:layout_marginBottom="18dp"
+        android:textColor="@color/black" />
 </RelativeLayout>
