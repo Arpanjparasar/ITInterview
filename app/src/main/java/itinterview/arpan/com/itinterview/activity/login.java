@@ -86,7 +86,7 @@ public class login extends AppCompatActivity {
 
 
         btn_signin=(com.google.android.gms.common.SignInButton)findViewById(R.id.signin_btn);
-        btn_signout=(Button)findViewById(R.id.signout_btn);
+      //  btn_signout=(Button)findViewById(R.id.signout_btn);
         nameText =(TextView)findViewById(R.id.name);
         emailText=(TextView)findViewById(R.id.email);
 

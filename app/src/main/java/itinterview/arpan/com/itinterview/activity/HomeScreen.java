@@ -306,13 +306,13 @@ public class HomeScreen extends AppCompatActivity
 
             AlertDialog.Builder report=new AlertDialog.Builder(HomeScreen.this);
             View reportView=getLayoutInflater().inflate(R.layout.reportproblem,null);
-            EditText problem=reportView.findViewById(R.id.ET_subject);
+            final EditText problem=reportView.findViewById(R.id.ET_subject);
 
             report.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     Toast.makeText(HomeScreen.this,"Report Successfully Sent",Toast.LENGTH_LONG).show();
-                   // sendEmail();
+                    sendEmail(problem.getText().toString());
 
 
 
@@ -362,7 +362,7 @@ public class HomeScreen extends AppCompatActivity
         return true;
     }
 
-    /*protected void sendEmail() {
+    protected void sendEmail(String message) {
 
 
         String recipient="arpanjyotiparasar@gmail.com";
@@ -373,7 +373,7 @@ public class HomeScreen extends AppCompatActivity
         email.setType("message/rfc822");
         email.putExtra(Intent.EXTRA_EMAIL, recipients);
         email.putExtra(Intent.EXTRA_SUBJECT, problem);
-        email.putExtra(Intent.EXTRA_TEXT,findViewById(R.id.ET_subject).toString());
+        email.putExtra(Intent.EXTRA_TEXT,message);
         try {
             // the user can choose the email client
             startActivity(Intent.createChooser(email, "Choose the email..."));
@@ -384,7 +384,7 @@ public class HomeScreen extends AppCompatActivity
 
         }
 
-    }*/
+    }
 
 
 

@@ -25,6 +25,7 @@ import itinterview.arpan.com.itinterview.model.ExpandableChild;
 import itinterview.arpan.com.itinterview.R;
 import itinterview.arpan.com.itinterview.utility.FireBaseUtility;
 import itinterview.arpan.com.itinterview.utility.IViewConstants;
+import itinterview.arpan.com.itinterview.utility.NetworkUtility;
 
 public class Homefragment extends BaseFragment implements CompanyAndDomainFetchListiener{
 
@@ -114,8 +115,12 @@ public class Homefragment extends BaseFragment implements CompanyAndDomainFetchL
     public void onResume() {
         super.onResume();
 
-        showProgressDialog();
-        new FireBaseUtility().getCatagory(this);
+        if(NetworkUtility.isNetworkConnected(getActivity())) {
+            showProgressDialog();
+            new FireBaseUtility().getCatagory(this);
+        }else{
+            
+        }
     }
 
     @Override
