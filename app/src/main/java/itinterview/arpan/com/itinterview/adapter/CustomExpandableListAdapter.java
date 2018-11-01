@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
+
 import itinterview.arpan.com.itinterview.model.ExpandableChild;
 import itinterview.arpan.com.itinterview.R;
 import itinterview.arpan.com.itinterview.volley.CustomVolleyNetworkQueue;
@@ -64,11 +65,15 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         expandedListTextView.setText(listData.getName());
 
+
+
         imageLoader.get(listData.getUrl().toString(), ImageLoader.getImageListener(networkImageView,
                 R.mipmap.ic_launcher, android.R.drawable
                         .ic_dialog_alert));
 
         networkImageView.setImageUrl(listData.getUrl(), imageLoader);
+
+
 
         return convertView;
     }

@@ -19,12 +19,17 @@ import itinterview.arpan.com.itinterview.tables.Question;
 import itinterview.arpan.com.itinterview.utility.FireBaseUtility;
 import itinterview.arpan.com.itinterview.utility.IViewConstants;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 
 public class QuestionAnswerFragment extends BaseFragment implements QuestionAnswerFetchListener {
 
     private View fragmentView;
     private ExpandableListView expandableListView;
     private QuestionAndAnswerExpandableListAdapter expandableListAdapter;
+    private AdView mAdView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +51,17 @@ public class QuestionAnswerFragment extends BaseFragment implements QuestionAnsw
         showProgressDialog();
 
         new FireBaseUtility().fetchQuestionAnswer(title,value,this);
+
+
+        MobileAds.initialize(getActivity(), "ca-app-pub-1996444408149363~5500096398");
+
+        mAdView =(AdView) fragmentView.findViewById(R.id.adView);
+        AdRequest.Builder builder = new AdRequest.Builder();
+        builder.addTestDevice("1AB35343665A25E0874F7F8DF85013DC");
+        AdRequest adRequest = builder.build();
+
+
+        mAdView.loadAd(adRequest);
 
         return fragmentView;
     }

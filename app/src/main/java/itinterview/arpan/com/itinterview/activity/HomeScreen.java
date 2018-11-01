@@ -16,6 +16,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +32,7 @@ import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -59,21 +64,21 @@ public class HomeScreen extends AppCompatActivity
         return companies;
     }
 
-    ArrayList<String> getCompanyNames(){
+    ArrayList<String> getCompanyNames() {
 
         ArrayList<String> names = new ArrayList<>();
 
-        for(ExpandableChild company:companies){
+        for (ExpandableChild company : companies) {
             names.add(company.getName());
         }
         return names;
     }
 
-    ArrayList<String> getDomainNames(){
+    ArrayList<String> getDomainNames() {
 
         ArrayList<String> names = new ArrayList<>();
 
-        for(ExpandableChild domain:domains){
+        for (ExpandableChild domain : domains) {
             names.add(domain.getName());
         }
         return names;
@@ -97,7 +102,7 @@ public class HomeScreen extends AppCompatActivity
     protected void onResume() {
         super.onResume();
 
-        if(NetworkUtility.isNetworkConnected(this)){
+        if (NetworkUtility.isNetworkConnected(this)) {
 
 
         }
@@ -119,7 +124,7 @@ public class HomeScreen extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if(mFirebaseUser ==null){
+        if (mFirebaseUser == null) {
             fab.setEnabled(false);
         }
         fab.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +133,7 @@ public class HomeScreen extends AppCompatActivity
                /* Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
 
-               showQestionDialog();
+                showQestionDialog();
             }
         });
 
@@ -146,7 +151,7 @@ public class HomeScreen extends AppCompatActivity
         tv_empname = (TextView) headerView.findViewById(R.id.TV_profileName);
         tv_empemail = (TextView) headerView.findViewById(R.id.TV_profileEmail);
 
-        if(mFirebaseUser !=null) {
+        if (mFirebaseUser != null) {
             String userEmail = mFirebaseUser.getEmail();
             String name = mFirebaseUser.getDisplayName();
 
@@ -168,31 +173,58 @@ public class HomeScreen extends AppCompatActivity
 
     private void showQestionDialog() {
 
-        if(getDomainNames().size() == 0 || getCompanyNames().size() ==0) return;
+        if (getDomainNames().size() == 0 || getCompanyNames().size() == 0) return;
 
 
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        View reportView=getLayoutInflater().inflate(R.layout.dialog_post_question,null);
-        final EditText etQuestion=reportView.findViewById(R.id.et_question);
+        View reportView = getLayoutInflater().inflate(R.layout.dialog_post_question, null);
+        final EditText etQuestion = reportView.findViewById(R.id.et_question);
         final Spinner spinnerDomain = reportView.findViewById(R.id.spinner_domain);
+        spinnerDomain.setPrompt("Select Domain");
         final Spinner spinnerCompany = reportView.findViewById(R.id.spinner_company);
+        spinnerCompany.setPrompt("Select Company");
 
-        Button btnSubmit = reportView.findViewById(R.id.btn_submit);
+        final Button btnSubmit = reportView.findViewById(R.id.btn_submit);
 
 
         //Creating the ArrayAdapter instance having the country list
-        ArrayAdapter aaDomain = new ArrayAdapter(this,android.R.layout.simple_spinner_item,getDomainNames());
+        ArrayAdapter aaDomain = new ArrayAdapter(this, android.R.layout.simple_spinner_item, getDomainNames());
         aaDomain.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         spinnerDomain.setAdapter(aaDomain);
+        spinnerDomain.setSelection(getDomainNames().indexOf("General"));
 
 
         //Creating the ArrayAdapter instance having the country list
-        ArrayAdapter aaCompany = new ArrayAdapter(this,android.R.layout.simple_spinner_item,getCompanyNames());
+        ArrayAdapter aaCompany = new ArrayAdapter(this, android.R.layout.simple_spinner_item, getCompanyNames());
         aaCompany.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         spinnerCompany.setAdapter(aaCompany);
+        spinnerCompany.setSelection(getCompanyNames().indexOf("General"));
 
+
+        btnSubmit.setEnabled(false);
+
+        etQuestion.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(s.length()!=0) {
+                    btnSubmit.setEnabled(true);
+                }else{
+                    Toast.makeText(getBaseContext(), "You did not entered a question", Toast.LENGTH_SHORT).show();
+                    btnSubmit.setEnabled(false);
+                }
+            }
+        });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,7 +234,7 @@ public class HomeScreen extends AppCompatActivity
                 String company = spinnerCompany.getSelectedItem().toString();
                 String que = etQuestion.getText().toString();
 
-                final Question question = new Question(domain,company,que);
+                final Question question = new Question(domain, company, que);
                 FireBaseUtility.saveQuestion(question);
                 alertDialog.dismiss();
             }
@@ -217,12 +249,12 @@ public class HomeScreen extends AppCompatActivity
 
     private void goToHomeFragment() {
         setTitle("IT Interview");
-        android.support.v4.app.Fragment aboutFragment= new Homefragment();
+        android.support.v4.app.Fragment aboutFragment = new Homefragment();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content,aboutFragment);
+        fragmentTransaction.replace(R.id.content, aboutFragment);
         fragmentTransaction.commit();
 
 
@@ -271,20 +303,16 @@ public class HomeScreen extends AppCompatActivity
 
             setTitle("Contact Us");
 
-            android.support.v4.app.Fragment aboutFragment= new ContactUsFragment();
+            android.support.v4.app.Fragment aboutFragment = new ContactUsFragment();
 
             FragmentManager fragmentManager = getSupportFragmentManager();
 
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.content,aboutFragment);
+            fragmentTransaction.replace(R.id.content, aboutFragment);
             fragmentTransaction.commit();
 
 
-
-
-        }
-
-        else if(id==R.id.nav_home){
+        } else if (id == R.id.nav_home) {
 
             goToHomeFragment();
 
@@ -292,28 +320,27 @@ public class HomeScreen extends AppCompatActivity
 
             setTitle("Terms and Conditions");
 
-            android.support.v4.app.Fragment aboutFragment= new Terms();
+            android.support.v4.app.Fragment aboutFragment = new Terms();
 
             FragmentManager fragmentManager = getSupportFragmentManager();
 
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.content,aboutFragment);
+            fragmentTransaction.replace(R.id.content, aboutFragment);
             fragmentTransaction.commit();
 
 
         } else if (id == R.id.nav_report) {
 
 
-            AlertDialog.Builder report=new AlertDialog.Builder(HomeScreen.this);
-            View reportView=getLayoutInflater().inflate(R.layout.reportproblem,null);
-            final EditText problem=reportView.findViewById(R.id.ET_subject);
+            AlertDialog.Builder report = new AlertDialog.Builder(HomeScreen.this);
+            View reportView = getLayoutInflater().inflate(R.layout.reportproblem, null);
+            final EditText problem = reportView.findViewById(R.id.ET_subject);
 
             report.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(HomeScreen.this,"Report Successfully Sent",Toast.LENGTH_LONG).show();
+                    Toast.makeText(HomeScreen.this, "Report Successfully Sent", Toast.LENGTH_LONG).show();
                     sendEmail(problem.getText().toString());
-
 
 
                 }
@@ -331,12 +358,12 @@ public class HomeScreen extends AppCompatActivity
 
             setTitle("About us");
 
-            android.support.v4.app.Fragment aboutFragment= new AboutUs();
+            android.support.v4.app.Fragment aboutFragment = new AboutUs();
 
             FragmentManager fragmentManager = getSupportFragmentManager();
 
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.content,aboutFragment);
+            fragmentTransaction.replace(R.id.content, aboutFragment);
             fragmentTransaction.commit();
 
         } else if (id == R.id.nav_share) {
@@ -351,7 +378,13 @@ public class HomeScreen extends AppCompatActivity
             startActivity(Intent.createChooser(share, "Share Using"));
 
         } else if (id == R.id.nav_logout) {
+            if(LoginManager.getInstance()!= null){
+                LoginManager.getInstance().logOut();
+            }
+
+
             FirebaseAuth.getInstance().signOut();
+
             Intent intent = new Intent(this, SplashScreen.class);
             startActivity(intent);
             finish();
@@ -365,19 +398,19 @@ public class HomeScreen extends AppCompatActivity
     protected void sendEmail(String message) {
 
 
-        String recipient="arpanjyotiparasar@gmail.com";
-        String problem="IT Interview problem";
+        String recipient = "arpanjyotiparasar@gmail.com";
+        String problem = "IT Interview problem";
         String[] recipients = {recipient.toString()};
         Intent email = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
         // prompts email clients only
         email.setType("message/rfc822");
         email.putExtra(Intent.EXTRA_EMAIL, recipients);
         email.putExtra(Intent.EXTRA_SUBJECT, problem);
-        email.putExtra(Intent.EXTRA_TEXT,message);
+        email.putExtra(Intent.EXTRA_TEXT, message);
         try {
             // the user can choose the email client
             startActivity(Intent.createChooser(email, "Choose the email..."));
-            } catch (android.content.ActivityNotFoundException ex) {
+        } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(HomeScreen.this, "No email client installed.",
 
                     Toast.LENGTH_LONG).show();
@@ -385,7 +418,6 @@ public class HomeScreen extends AppCompatActivity
         }
 
     }
-
 
 
 }

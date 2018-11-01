@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/q">
+    android:layout_height="match_parent">
 
     <ExpandableListView
         android:id="@+id/expandableQAListView"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="0.5dp" />
+        android:groupIndicator="@android:color/transparent"
+        android:background="@color/white"
+        android:divider="@android:color/transparent"/>
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-1996444408149363/2624196204"></com.google.android.gms.ads.AdView>
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

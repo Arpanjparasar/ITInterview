@@ -39,10 +39,10 @@
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_application_id" />
+            android:value="276666836513385" />
         <meta-data
             android:name="com.facebook.accountkit.ApplicationName"
-            android:value="@string/app_name" />
+            android:value="ITinterview" />
         <meta-data
             android:name="com.facebook.accountkit.ClientToken"
             android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />

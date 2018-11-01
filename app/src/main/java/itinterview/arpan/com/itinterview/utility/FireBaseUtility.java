@@ -170,8 +170,13 @@ public class FireBaseUtility {
 
         String userId = ITInterviewApplication.getFireBaseDatabase().push().getKey();
         question.setUserId(userId);
-        ITInterviewApplication.getFireBaseDatabase().child("question").child("Domains").child(question.getDomain()).child(userId).setValue(question);
-        ITInterviewApplication.getFireBaseDatabase().child("question").child("Companies").child(question.getCompany()).child(userId).setValue(question);
+       ITInterviewApplication.getFireBaseDatabase().child("question").child("Domains").child(question.getDomain()).child(userId).setValue(question);
+
+
+       ITInterviewApplication.getFireBaseDatabase().child("question").child("Companies").child(question.getCompany()).child(userId).setValue(question);
+
+
+
 
     }
 

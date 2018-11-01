@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
         android:textColor="@android:color/black"
-
+        android:background="@drawable/listdesign"
         android:paddingTop="10dp"
         android:textSize="15dp"
         android:text="android"
@@ -17,7 +17,10 @@
         android:paddingBottom="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/white"/>
+        android:layout_marginTop="9dp" />
+
+
+
+
 
 </RelativeLayout>

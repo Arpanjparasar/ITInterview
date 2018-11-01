@@ -34,7 +34,10 @@
         android:layout_marginBottom="15dp"
         android:autofillHints="Domain"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:padding="3dp"
+        android:layout_marginRight="20dp"
+        android:spinnerMode="dialog"
+        android:background="@drawable/listitemdesign"/>
 
         <Spinner
             android:id="@+id/spinner_company"
@@ -46,7 +49,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="15dp"
-            android:autofillHints="Company" />
+            android:padding="3dp"
+            android:autofillHints="Company"
+            android:background="@drawable/listitemdesign"
+            android:spinnerMode="dialog" />
 
         <EditText
             android:id="@+id/et_question"
