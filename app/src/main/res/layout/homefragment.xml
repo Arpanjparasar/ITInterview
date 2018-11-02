@@ -8,9 +8,33 @@
         android:id="@+id/expandableListView"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_below="@+id/tv_general"
+        android:layout_marginTop="15dp"
         android:groupIndicator="@android:color/transparent"
         android:background="@color/white"
         android:divider="@android:color/transparent"/>
+
+    <TextView
+        android:layout_alignParentTop="true"
+        android:id="@+id/tv_general"
+        android:textStyle="bold"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:textColor="@android:color/black"
+        android:paddingTop="15dp"
+        android:textSize="15dp"
+        android:text="General"
+        android:clickable="true"
+        android:gravity="start"
+        android:paddingBottom="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:elevation="10dp"
+        android:layout_marginBottom="9dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/listdesign"/>
+
 
 
 </RelativeLayout>

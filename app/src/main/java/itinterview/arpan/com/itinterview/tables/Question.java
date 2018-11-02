@@ -1,5 +1,7 @@
 package itinterview.arpan.com.itinterview.tables;
 
+import itinterview.arpan.com.itinterview.utility.IViewConstants;
+
 public class Question {
 
     String Domains;
@@ -7,7 +9,7 @@ public class Question {
 
     String question;
 
-    String answer = "Not yet Answered";
+    String answer = IViewConstants.TAP_TO_ANSWER;
 
     String userId;
 

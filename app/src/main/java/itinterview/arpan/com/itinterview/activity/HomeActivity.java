@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -17,9 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,18 +37,17 @@ import java.util.ArrayList;
 
 import itinterview.arpan.com.itinterview.fragment.ContactUsFragment;
 import itinterview.arpan.com.itinterview.model.ExpandableChild;
-import itinterview.arpan.com.itinterview.tables.Company;
 import itinterview.arpan.com.itinterview.tables.Question;
 import itinterview.arpan.com.itinterview.utility.FireBaseUtility;
 import itinterview.arpan.com.itinterview.R;
 import itinterview.arpan.com.itinterview.fragment.AboutUs;
 import itinterview.arpan.com.itinterview.fragment.Homefragment;
 import itinterview.arpan.com.itinterview.fragment.Terms;
-import itinterview.arpan.com.itinterview.tables.ContactUs;
+import itinterview.arpan.com.itinterview.utility.IViewConstants;
 import itinterview.arpan.com.itinterview.utility.NetworkUtility;
 import itinterview.arpan.com.itinterview.volley.CustomVolleyNetworkQueue;
 
-public class HomeScreen extends AppCompatActivity
+public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView tv_empname, tv_empemail;
@@ -68,15 +64,20 @@ public class HomeScreen extends AppCompatActivity
 
         ArrayList<String> names = new ArrayList<>();
 
+        if(companies!=null && companies.size()!=0) names.add(IViewConstants.SELECT_COMPANY);
+
         for (ExpandableChild company : companies) {
             names.add(company.getName());
         }
+
         return names;
     }
 
     ArrayList<String> getDomainNames() {
 
         ArrayList<String> names = new ArrayList<>();
+
+        if(domains!=null && domains.size()!=0) names.add(IViewConstants.SELECT_DOMAIN);
 
         for (ExpandableChild domain : domains) {
             names.add(domain.getName());
@@ -180,9 +181,7 @@ public class HomeScreen extends AppCompatActivity
         View reportView = getLayoutInflater().inflate(R.layout.dialog_post_question, null);
         final EditText etQuestion = reportView.findViewById(R.id.et_question);
         final Spinner spinnerDomain = reportView.findViewById(R.id.spinner_domain);
-        spinnerDomain.setPrompt("Select Domain");
         final Spinner spinnerCompany = reportView.findViewById(R.id.spinner_company);
-        spinnerCompany.setPrompt("Select Company");
 
         final Button btnSubmit = reportView.findViewById(R.id.btn_submit);
 
@@ -192,7 +191,7 @@ public class HomeScreen extends AppCompatActivity
         aaDomain.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         spinnerDomain.setAdapter(aaDomain);
-        spinnerDomain.setSelection(getDomainNames().indexOf("General"));
+
 
 
         //Creating the ArrayAdapter instance having the country list
@@ -200,7 +199,7 @@ public class HomeScreen extends AppCompatActivity
         aaCompany.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         spinnerCompany.setAdapter(aaCompany);
-        spinnerCompany.setSelection(getCompanyNames().indexOf("General"));
+
 
 
         btnSubmit.setEnabled(false);
@@ -332,14 +331,14 @@ public class HomeScreen extends AppCompatActivity
         } else if (id == R.id.nav_report) {
 
 
-            AlertDialog.Builder report = new AlertDialog.Builder(HomeScreen.this);
+            AlertDialog.Builder report = new AlertDialog.Builder(HomeActivity.this);
             View reportView = getLayoutInflater().inflate(R.layout.reportproblem, null);
             final EditText problem = reportView.findViewById(R.id.ET_subject);
 
             report.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(HomeScreen.this, "Report Successfully Sent", Toast.LENGTH_LONG).show();
+                    Toast.makeText(HomeActivity.this, "Report Successfully Sent", Toast.LENGTH_LONG).show();
                     sendEmail(problem.getText().toString());
 
 
@@ -411,7 +410,7 @@ public class HomeScreen extends AppCompatActivity
             // the user can choose the email client
             startActivity(Intent.createChooser(email, "Choose the email..."));
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(HomeScreen.this, "No email client installed.",
+            Toast.makeText(HomeActivity.this, "No email client installed.",
 
                     Toast.LENGTH_LONG).show();
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import itinterview.arpan.com.itinterview.ITInterviewApplication;
+import itinterview.arpan.com.itinterview.fragment.QuestionAnswerFragment;
 import itinterview.arpan.com.itinterview.listener.CompanyAndDomainFetchListiener;
 import itinterview.arpan.com.itinterview.listener.FetchAboutListener;
 import itinterview.arpan.com.itinterview.listener.FetchContactUs;
@@ -168,14 +169,23 @@ public class FireBaseUtility {
 
     public static void saveQuestion(Question question){
 
-        String userId = ITInterviewApplication.getFireBaseDatabase().push().getKey();
+        //String userId = ITInterviewApplication.getFireBaseDatabase().push().getKey();
+        String userId = String.valueOf(System.currentTimeMillis());
         question.setUserId(userId);
-       ITInterviewApplication.getFireBaseDatabase().child("question").child("Domains").child(question.getDomain()).child(userId).setValue(question);
+
+        if(question.getDomain().equalsIgnoreCase(IViewConstants.SELECT_DOMAIN)){
+            ITInterviewApplication.getFireBaseDatabase().child("question").child("general").child(userId).setValue(question);
+        }else{
+            ITInterviewApplication.getFireBaseDatabase().child("question").child("Domains").child(question.getDomain()).child(userId).setValue(question);
+        }
 
 
-       ITInterviewApplication.getFireBaseDatabase().child("question").child("Companies").child(question.getCompany()).child(userId).setValue(question);
+        if(question.getCompany().equalsIgnoreCase(IViewConstants.SELECT_COMPANY)){
+            ITInterviewApplication.getFireBaseDatabase().child("question").child("general").child(userId).setValue(question);
+        }else {
 
-
+            ITInterviewApplication.getFireBaseDatabase().child("question").child("Companies").child(question.getCompany()).child(userId).setValue(question);
+        }
 
 
     }
@@ -211,5 +221,55 @@ public class FireBaseUtility {
             }
         });
 
+    }
+
+    public void fetchQuestionAnswerFromGeneral(final QuestionAnswerFetchListener questionAnswerFetchListener) {
+
+        final  HashMap<String,ArrayList<Question>> arrayListHashMap = new HashMap<>();
+
+        ITInterviewApplication.getFireBaseDatabase().child("question").child("general").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
+
+                    ArrayList<Question> questions = new ArrayList<>();
+                    Question value = dataSnapshot1.getValue(Question.class);
+                    questions.add(value);
+
+                    arrayListHashMap.put(value.getQuestion(),questions);
+                }
+
+                questionAnswerFetchListener.onFetchSuccess(arrayListHashMap);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+
+            }
+        });
+    }
+
+    public void saveAnswer(String value, String title, Question question) {
+
+        if(question.getCompany()!=null){
+
+            ITInterviewApplication.getFireBaseDatabase().child("question").child("Companies").child(question.getCompany()).child(question.getUserId()).setValue(question);
+        }
+
+        if(question.getDomain()!=null){
+            ITInterviewApplication.getFireBaseDatabase().child("question").child("Domains").child(question.getCompany()).child(question.getUserId()).setValue(question);
+        }
+
+        if(title.equalsIgnoreCase("general")){
+            ITInterviewApplication.getFireBaseDatabase().child("question").child("general").child(question.getUserId()).setValue(question);
+        }
+
+    }
+
+    public void saveGeneralAnswer(Question question) {
+        ITInterviewApplication.getFireBaseDatabase().child("question").child("general").child(question.getUserId()).setValue(question);
     }
 }

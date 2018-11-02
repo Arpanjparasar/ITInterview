@@ -2,28 +2,23 @@ package itinterview.arpan.com.itinterview.fragment;
 
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import itinterview.arpan.com.itinterview.activity.HomeScreen;
+import itinterview.arpan.com.itinterview.activity.HomeActivity;
 import itinterview.arpan.com.itinterview.adapter.CustomExpandableListAdapter;
 import itinterview.arpan.com.itinterview.listener.CompanyAndDomainFetchListiener;
 import itinterview.arpan.com.itinterview.model.ExpandableChild;
@@ -40,8 +35,7 @@ public class Homefragment extends BaseFragment implements CompanyAndDomainFetchL
     HashMap<String, List<ExpandableChild>> expandableListDetail;
 
     private View fragmentView;
-
-
+    private TextView mTvGeneral;
 
 
     @Nullable
@@ -88,23 +82,7 @@ public class Homefragment extends BaseFragment implements CompanyAndDomainFetchL
                 ).show();*/
 
 
-
-
-
-                QuestionAnswerFragment questionAnswerFragment = new QuestionAnswerFragment();
-
-                Bundle bundle = new Bundle();
-                bundle.putString(IViewConstants.CATEGORY,expandableListDetail.get(
-                        expandableListTitle.get(groupPosition)).get(childPosition).getName());
-
-                bundle.putString(IViewConstants.TITLE,expandableListTitle.get(groupPosition));
-
-                questionAnswerFragment.setArguments(bundle);
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction =        fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.content, questionAnswerFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                gotoQuestionAnswerFragment(groupPosition, childPosition,false);
 
 
 
@@ -116,8 +94,35 @@ public class Homefragment extends BaseFragment implements CompanyAndDomainFetchL
 
        // FireBaseUtility.saveCatagory();
 
+        mTvGeneral = fragmentView.findViewById(R.id.tv_general);
 
+        mTvGeneral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoQuestionAnswerFragment(0,0,true);
+            }
+        });
         return fragmentView;
+    }
+
+    private void gotoQuestionAnswerFragment(int groupPosition, int childPosition ,boolean isGeneral) {
+        QuestionAnswerFragment questionAnswerFragment = new QuestionAnswerFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(IViewConstants.IS_GENERAL,isGeneral);
+        if(!isGeneral){
+            bundle.putString(IViewConstants.CATEGORY, expandableListDetail.get(
+                    expandableListTitle.get(groupPosition)).get(childPosition).getName());
+
+            bundle.putString(IViewConstants.TITLE, expandableListTitle.get(groupPosition));
+        }
+
+        questionAnswerFragment.setArguments(bundle);
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction =        fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content, questionAnswerFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -151,9 +156,9 @@ public class Homefragment extends BaseFragment implements CompanyAndDomainFetchL
     @Override
     public void onFetchCategorySucces(ArrayList<ExpandableChild> companies, ArrayList<ExpandableChild> domains) {
 
-        HomeScreen homeScreen = (HomeScreen) getActivity();
-        homeScreen.setCompanies(companies);
-        homeScreen.setDomains(domains);
+        HomeActivity homeActivity = (HomeActivity) getActivity();
+        homeActivity.setCompanies(companies);
+        homeActivity.setDomains(domains);
 
         expandableListDetail = new HashMap<>();
         expandableListDetail.put("Domains",domains);

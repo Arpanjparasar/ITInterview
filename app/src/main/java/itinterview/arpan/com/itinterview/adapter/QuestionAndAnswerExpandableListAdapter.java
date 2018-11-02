@@ -9,17 +9,14 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import itinterview.arpan.com.itinterview.R;
-import itinterview.arpan.com.itinterview.model.ExpandableChild;
+import itinterview.arpan.com.itinterview.listener.TapToAnswerListener;
 import itinterview.arpan.com.itinterview.tables.Question;
-import itinterview.arpan.com.itinterview.volley.CustomVolleyNetworkQueue;
+import itinterview.arpan.com.itinterview.utility.IViewConstants;
 
 public class QuestionAndAnswerExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -27,10 +24,13 @@ public class QuestionAndAnswerExpandableListAdapter extends BaseExpandableListAd
     private List<String> expandableListTitle;
     HashMap<String, ArrayList<Question>> questionAnswerMap;
 
-    public QuestionAndAnswerExpandableListAdapter(Context context, HashMap<String, ArrayList<Question>> questionAnswerMap) {
+    private final TapToAnswerListener tapToAnswerListener;
+
+    public QuestionAndAnswerExpandableListAdapter(Context context, HashMap<String, ArrayList<Question>> questionAnswerMap, TapToAnswerListener tapToAnswerListener) {
         this.context = context;
         this.expandableListTitle = new ArrayList<String>(questionAnswerMap.keySet());
         this.questionAnswerMap = questionAnswerMap;
+        this.tapToAnswerListener = tapToAnswerListener;
     }
 
     @Override
@@ -55,6 +55,17 @@ public class QuestionAndAnswerExpandableListAdapter extends BaseExpandableListAd
         }
         TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.expandedQAListItem);
+
+
+        expandedListTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(listData.getAnswer().equalsIgnoreCase(IViewConstants.TAP_TO_ANSWER)){
+                    tapToAnswerListener.onClickTapToAnswer(listData);
+                }
+            }
+        });
 
         expandedListTextView.setText(listData.getAnswer());
         return convertView;

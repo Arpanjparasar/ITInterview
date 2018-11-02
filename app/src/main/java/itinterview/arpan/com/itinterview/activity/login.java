@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -28,7 +26,6 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -100,7 +97,7 @@ public class login extends AppCompatActivity {
     }
 
     private void gotoHomeScreen() {
-        Intent intent = new Intent(login.this,HomeScreen.class);
+        Intent intent = new Intent(login.this,HomeActivity.class);
         //intent.putExtra("name",);
         startActivity(intent);
         finish();

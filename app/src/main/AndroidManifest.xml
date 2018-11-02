@@ -39,7 +39,7 @@
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="276666836513385" />
+            android:value="@string/facebook_application_id" />
         <meta-data
             android:name="com.facebook.accountkit.ApplicationName"
             android:value="ITinterview" />
@@ -48,7 +48,7 @@
             android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
 
         <activity
-            android:name=".activity.HomeScreen"
+            android:name=".activity.HomeActivity"
             android:label="@string/title_activity_homescreen"
             android:theme="@style/AppTheme"></activity>
 
