@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment;
  * Created by philips on 10/27/18.
  */
 
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     private ProgressDialog dialog;
 
@@ -39,4 +39,6 @@ public class BaseFragment extends Fragment {
         }
 
     }
+
+    public abstract void isInternetConnected();
 }

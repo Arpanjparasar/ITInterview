@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import itinterview.arpan.com.itinterview.R;
 
-public class Terms extends Fragment {
+public class Terms extends BaseFragment {
 
     ImageView iv_back;
     private View fragmentView;
@@ -27,4 +27,8 @@ public class Terms extends Fragment {
     }
 
 
+    @Override
+    public void isInternetConnected() {
+
+    }
 }

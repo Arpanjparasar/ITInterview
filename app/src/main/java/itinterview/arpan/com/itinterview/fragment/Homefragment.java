@@ -132,24 +132,6 @@ public class Homefragment extends BaseFragment implements CompanyAndDomainFetchL
         if(NetworkUtility.isNetworkConnected(getActivity())) {
             showProgressDialog();
             new FireBaseUtility().getCatagory(this);
-        }else{
-
-
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Connect to Internet and try again")
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            //do things
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-
-
-
-
         }
     }
 
@@ -178,5 +160,11 @@ public class Homefragment extends BaseFragment implements CompanyAndDomainFetchL
     public void onDestroy() {
         super.onDestroy();
         dissMissProgressDialog();
+    }
+
+    @Override
+    public void isInternetConnected() {
+        showProgressDialog();
+        new FireBaseUtility().getCatagory(this);
     }
 }

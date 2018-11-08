@@ -17,7 +17,7 @@ import itinterview.arpan.com.itinterview.listener.FetchContactUs;
 import itinterview.arpan.com.itinterview.tables.ContactUs;
 import itinterview.arpan.com.itinterview.utility.FireBaseUtility;
 
-public class ContactUsFragment extends Fragment implements FetchContactUs {
+public class ContactUsFragment extends BaseFragment implements FetchContactUs {
 
 
 
@@ -49,5 +49,10 @@ public class ContactUsFragment extends Fragment implements FetchContactUs {
     @Override
     public void onContactFailure(Exception exception) {
         Log.w("arpan", "getUser:onCancelled"+ exception.getMessage());
+    }
+
+    @Override
+    public void isInternetConnected() {
+
     }
 }

@@ -260,7 +260,7 @@ public class FireBaseUtility {
         }
 
         if(question.getDomain()!=null){
-            ITInterviewApplication.getFireBaseDatabase().child("question").child("Domains").child(question.getCompany()).child(question.getUserId()).setValue(question);
+            ITInterviewApplication.getFireBaseDatabase().child("question").child("Domains").child(question.getDomain()).child(question.getUserId()).setValue(question);
         }
 
         if(title.equalsIgnoreCase("general")){

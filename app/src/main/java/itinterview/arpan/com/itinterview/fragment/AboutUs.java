@@ -14,7 +14,7 @@ import itinterview.arpan.com.itinterview.utility.FireBaseUtility;
 import itinterview.arpan.com.itinterview.R;
 import itinterview.arpan.com.itinterview.tables.About;
 
-public class AboutUs extends Fragment implements FetchAboutListener {
+public class AboutUs extends BaseFragment implements FetchAboutListener {
 
 
     private View fragmentView;
@@ -40,5 +40,10 @@ public class AboutUs extends Fragment implements FetchAboutListener {
     @Override
     public void onFailure(Exception exception) {
         Log.w("arpan", "getUser:onCancelled"+ exception.getMessage());
+    }
+
+    @Override
+    public void isInternetConnected() {
+
     }
 }

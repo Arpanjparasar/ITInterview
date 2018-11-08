@@ -4,10 +4,14 @@ package itinterview.arpan.com.itinterview.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -34,8 +38,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import itinterview.arpan.com.itinterview.broadcast.InternetConnectionWatcher;
 import itinterview.arpan.com.itinterview.fragment.ContactUsFragment;
+import itinterview.arpan.com.itinterview.fragment.QuestionAnswerFragment;
+import itinterview.arpan.com.itinterview.listener.InternetConnectionListener;
 import itinterview.arpan.com.itinterview.model.ExpandableChild;
 import itinterview.arpan.com.itinterview.tables.Question;
 import itinterview.arpan.com.itinterview.utility.FireBaseUtility;
@@ -48,13 +56,15 @@ import itinterview.arpan.com.itinterview.utility.NetworkUtility;
 import itinterview.arpan.com.itinterview.volley.CustomVolleyNetworkQueue;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,InternetConnectionListener {
 
     private TextView tv_empname, tv_empemail;
     private NetworkImageView profilePic;
     private ImageLoader imageLoader;
 
     private ArrayList<ExpandableChild> companies = new ArrayList<>();
+    private InternetConnectionWatcher internetConnectionWatcher;
+    private AlertDialog alert;
 
     public ArrayList<ExpandableChild> getCompanies() {
         return companies;
@@ -102,11 +112,18 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+    }
 
-        if (NetworkUtility.isNetworkConnected(this)) {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerWifiReceiver();
+    }
 
-
-        }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(internetConnectionWatcher);
     }
 
     @Override
@@ -166,6 +183,8 @@ public class HomeActivity extends AppCompatActivity
 
             profilePic.setImageUrl(mFirebaseUser.getPhotoUrl().toString(), imageLoader);
         }
+
+        internetConnectionWatcher = new InternetConnectionWatcher(this);
 
         goToHomeFragment();
 
@@ -419,5 +438,59 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
+    @Override
+    public void isInternetConnected() {
+
+        if(alert != null && alert.isShowing()){
+            alert.dismiss();
+        }
+
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+
+        for(Fragment fragment:fragments){
+
+            if(fragment instanceof Homefragment && fragment.isVisible()){
+
+                Homefragment homefragment =(Homefragment)fragment;
+                homefragment.isInternetConnected();
+            }
+
+            if(fragment instanceof QuestionAnswerFragment && fragment.isVisible()){
+
+                QuestionAnswerFragment questionAnswerFragment =(QuestionAnswerFragment)fragment;
+                questionAnswerFragment.isInternetConnected();
+            }
+        }
+    }
+
+    @Override
+    public void isInternetDisconnected() {
+        showInternetLostDialog();
+    }
+
+    private void registerWifiReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetConnectionWatcher, filter);
+    }
+
+    private void createAlertDialog(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Connect to Internet and try again")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        HomeActivity.this.finish();
+                    }
+                });
+        alert = builder.create();
+    }
+
+    private void showInternetLostDialog() {
+        if(alert == null) createAlertDialog();
+        alert.show();
+    }
 }
 
