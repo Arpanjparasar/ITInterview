@@ -1,5 +1,7 @@
 package itinterview.arpan.com.itinterview.utility;
 
+import android.widget.Toast;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import itinterview.arpan.com.itinterview.ITInterviewApplication;
+import itinterview.arpan.com.itinterview.activity.HomeActivity;
 import itinterview.arpan.com.itinterview.fragment.QuestionAnswerFragment;
 import itinterview.arpan.com.itinterview.listener.CompanyAndDomainFetchListiener;
 import itinterview.arpan.com.itinterview.listener.FetchAboutListener;
@@ -173,18 +176,18 @@ public class FireBaseUtility {
         String userId = String.valueOf(System.currentTimeMillis());
         question.setUserId(userId);
 
-        if(question.getDomain().equalsIgnoreCase(IViewConstants.SELECT_DOMAIN)){
+        if((question.getDomain().equalsIgnoreCase(IViewConstants.SELECT_DOMAIN))&&(question.getCompany().equalsIgnoreCase(IViewConstants.SELECT_COMPANY))){
             ITInterviewApplication.getFireBaseDatabase().child("question").child("general").child(userId).setValue(question);
-        }else{
+        }else if((question.getDomain()!=null)&& question.getCompany().equalsIgnoreCase(IViewConstants.SELECT_COMPANY))
+        {
             ITInterviewApplication.getFireBaseDatabase().child("question").child("Domains").child(question.getDomain()).child(userId).setValue(question);
         }
-
-
-        if(question.getCompany().equalsIgnoreCase(IViewConstants.SELECT_COMPANY)){
-            ITInterviewApplication.getFireBaseDatabase().child("question").child("general").child(userId).setValue(question);
-        }else {
-
+        else if((question.getCompany()!=null)&& question.getDomain().equalsIgnoreCase(IViewConstants.SELECT_DOMAIN)){
+            //ITInterviewApplication.getFireBaseDatabase().child("question").child("general").child(userId).setValue(question);
             ITInterviewApplication.getFireBaseDatabase().child("question").child("Companies").child(question.getCompany()).child(userId).setValue(question);
+        }else {
+             ITInterviewApplication.getFireBaseDatabase().child("question").child("Domains").child(question.getDomain()).child(userId).setValue(question);
+             ITInterviewApplication.getFireBaseDatabase().child("question").child("Companies").child(question.getCompany()).child(userId).setValue(question);
         }
 
 
