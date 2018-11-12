@@ -257,12 +257,12 @@ public class FireBaseUtility {
 
     public void saveAnswer(String value, String title, Question question) {
 
-        if(question.getCompany()!=null){
+        if((question.getCompany()!=null)&& question.getDomain().equalsIgnoreCase(IViewConstants.SELECT_DOMAIN)){
 
             ITInterviewApplication.getFireBaseDatabase().child("question").child("Companies").child(question.getCompany()).child(question.getUserId()).setValue(question);
         }
 
-        if(question.getDomain()!=null){
+        if((question.getDomain()!=null)&& question.getCompany().equalsIgnoreCase(IViewConstants.SELECT_COMPANY)){
             ITInterviewApplication.getFireBaseDatabase().child("question").child("Domains").child(question.getDomain()).child(question.getUserId()).setValue(question);
         }
 
