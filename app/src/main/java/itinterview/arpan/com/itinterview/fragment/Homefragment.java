@@ -14,6 +14,10 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +40,7 @@ public class Homefragment extends BaseFragment implements CompanyAndDomainFetchL
 
     private View fragmentView;
     private TextView mTvGeneral;
-
+    private AdView mAdView;
 
     @Nullable
     @Override
@@ -102,6 +106,19 @@ public class Homefragment extends BaseFragment implements CompanyAndDomainFetchL
                 gotoQuestionAnswerFragment(0,0,true);
             }
         });
+
+
+
+        MobileAds.initialize(getActivity(), "ca-app-pub-1996444408149363~5500096398");
+
+        mAdView =(AdView) fragmentView.findViewById(R.id.adView);
+        AdRequest.Builder builder = new AdRequest.Builder();
+        //builder.addTestDevice("1AB35343665A25E0874F7F8DF85013DC");
+        AdRequest adRequest = builder.build();
+
+
+        mAdView.loadAd(adRequest);
+
         return fragmentView;
     }
 

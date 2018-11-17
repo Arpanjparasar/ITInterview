@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "498419208942-7tdcm9ps0q9afd50o0gl01n7uimclu6g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "itinterview.arpan.com.itinterview",
+            "certificate_hash": "e92ff49c291ad42b0bb0ee9b3258ced6842f685a"
+          }
+        },
+        {
+          "client_id": "498419208942-nfvold1vlnpvetb6c3kmotnkdkr3gmu2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "itinterview.arpan.com.itinterview",
+            "certificate_hash": "6dfb295eb4b762b641db751b734b139929be04f3"
+          }
+        },
+        {
           "client_id": "498419208942-n6b24offn2t2bdp2qsjoua8o03h7tbno.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498419208942-n6b24offn2t2bdp2qsjoua8o03h7tbno.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

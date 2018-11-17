@@ -68,7 +68,7 @@ public class QuestionAnswerFragment extends BaseFragment implements QuestionAnsw
 
         mAdView =(AdView) fragmentView.findViewById(R.id.adView);
         AdRequest.Builder builder = new AdRequest.Builder();
-        builder.addTestDevice("1AB35343665A25E0874F7F8DF85013DC");
+        //builder.addTestDevice("1AB35343665A25E0874F7F8DF85013DC");
         AdRequest adRequest = builder.build();
 
 
