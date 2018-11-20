@@ -24,6 +24,9 @@ Here the user can post questions to specified domain and companies
 
  ![Sample Portfolio](https://github.com/Arpanjparasar/ITInterview/blob/master/Screenshots/Screenshot_20181120-103401_portrait.png)
  
+ 
+ ##
+![Sample Portfolio](https://github.com/Arpanjparasar/ITInterview/blob/master/Screenshots/screenshot%201.png)
  ## Domains list
 Here the list of Domains can be expanded
 
@@ -35,7 +38,7 @@ Here the list of Compannies can be expanded
  ![Sample Portfolio](https://github.com/Arpanjparasar/ITInterview/blob/master/Screenshots/Screenshot_20181120-103431_portrait.png)
 
 
-  ## Oquest and Answer part
+  ## Question and Answer part
 Here the various Questions and answers can be viewed
  ![Sample Portfolio](https://github.com/Arpanjparasar/ITInterview/blob/master/Screenshots/Screenshot_20181120-103438_portrait.png)
 
