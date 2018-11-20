@@ -1,6 +1,6 @@
 # ITInterview
 
-# ScreenShot
+## ScreenShot
 
 ## Splash Screen
  ![Sample Portfolio](https://github.com/Arpanjparasar/ITInterview/blob/master/Screenshots/Screenshot_20181120-103310_portrait.png)
