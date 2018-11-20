@@ -11,8 +11,7 @@ authentication to access the rest of the functionalities.
 
  ![Sample Portfolio](https://github.com/Arpanjparasar/ITInterview/blob/master/Screenshots/Screenshot_20181120-104709_portrait.png)
 
-## 
- ![Sample Portfolio](https://github.com/Rocktim53/JOB-portal/blob/master/screenshots/screenshot/Addition_Information.png)
+
 
 ## Home
  This is first layout the user interacts with after his/her login is completed.
