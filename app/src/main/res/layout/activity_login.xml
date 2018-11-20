@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textSize="20sp"
+            android:elevation="10dp"
            />
 
         <com.facebook.login.widget.LoginButton
@@ -62,13 +63,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:elevation="10dp"/>
 
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/signin_button_facebook"
+            android:elevation="10dp"
             android:layout_marginTop="10dp"
             android:background="@color/colorAccent"
             android:onClick="skip"
