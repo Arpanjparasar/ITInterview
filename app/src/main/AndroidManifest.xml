@@ -17,7 +17,7 @@
 
     <application
         android:testOnly="false"
-        android:name=".ITInterviewApplication"
+        android:name="com.arpan.itinterview.ITInterviewApplication"
         android:allowBackup="true"
         android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
         android:icon="@mipmap/launcher"
@@ -27,15 +27,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:supportsRtl">
-        <activity android:name=".activity.SplashScreen">
+        <activity android:name="com.arpan.itinterview.activity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.login" />
+        <activity android:name="com.arpan.itinterview.activity.MainActivity" />
+        <activity android:name="com.arpan.itinterview.activity.login" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -48,7 +48,7 @@
             android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
 
         <activity
-            android:name=".activity.HomeActivity"
+            android:name="com.arpan.itinterview.activity.HomeActivity"
             android:label="@string/title_activity_homescreen"
             android:theme="@style/AppTheme"></activity>
 

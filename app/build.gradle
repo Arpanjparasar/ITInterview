@@ -11,11 +11,11 @@ android {
     }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "itinterview.arpan.com.itinterview"
+        applicationId "com.arpan.itinterview"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
-        versionName "1.1"
+        versionName "2.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

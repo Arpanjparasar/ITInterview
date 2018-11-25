@@ -8,6 +8,37 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:498419208942:android:014eaaa5dbd840cb",
+        "android_client_info": {
+          "package_name": "com.arpan.itinterview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498419208942-n6b24offn2t2bdp2qsjoua8o03h7tbno.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgJF127j6nFMszWEgFA3tYETG3FhOiltI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:498419208942:android:f1c8f746658f3850",
         "android_client_info": {
           "package_name": "itinterview.arpan.com.itinterview"
@@ -56,7 +87,8 @@
         "ads_service": {
           "status": 2
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-1996444408149363~5500096398"
     }
   ],
   "configuration_version": "1"
