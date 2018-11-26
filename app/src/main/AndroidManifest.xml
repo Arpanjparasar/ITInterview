@@ -25,6 +25,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:showAsAction="ifRoom"
         android:supportsRtl="true"
+        android:noHistory="true"
         android:theme="@style/AppTheme"
         tools:replace="android:supportsRtl">
         <activity android:name="com.arpan.itinterview.activity.SplashScreen">
@@ -38,12 +39,15 @@
         <activity android:name="com.arpan.itinterview.activity.login" />
 
         <meta-data
+            android:noHistory="true"
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_application_id" />
         <meta-data
+            android:noHistory="true"
             android:name="com.facebook.accountkit.ApplicationName"
             android:value="ITinterview" />
         <meta-data
+            android:noHistory="true"
             android:name="com.facebook.accountkit.ClientToken"
             android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
 
